@@ -16,7 +16,7 @@ const createSkeletonElement = () => {
 
 const createArticleElement = (article) => {
   const el = document.createElement("article");
-  el.innerHTML = `<h2>${article.title}</h2><p>${article.body}</p><p><a href="#">Read More</a></p>`;
+  el.innerHTML = `<h2>${article[0]}</h2><p>${article[1]}</p><p><a href="/posts/${article[2]}">Read More</a></p>`;
   return el;
 };
 
@@ -44,6 +44,15 @@ const inject = (resp) => {
   }
 };
 
-fetch("https://jsonplaceholder.typicode.com/posts").then((httpResponse) =>
-  httpResponse.json().then((jsonResponse) => inject(jsonResponse))
-);
+/* Query Google Sheet for the card content */
+(async () => {
+  const proxyUrl =
+    "https://script.google.com/macros/s/AKfycbzMHxwypbwsccBq6RH8LDCAOpM02C4gbkljbcKHKFsoQTRE-f4XTIyswiaO0vshs-Kr/exec";
+  const controllerId = "1pfGF8yBu3D0GPTezygLuzu3Cif8SkjhtG98nL-czlhc";
+  const range = "B3:D";
+  const url = `${proxyUrl}?https://sheets.googleapis.com/v4/spreadsheets/${controllerId}/values/${range}`;
+
+  await fetch(url)
+    .then((httpResponse) => httpResponse.json())
+    .then((googleSheetsRange) => inject(googleSheetsRange.values));
+})();
