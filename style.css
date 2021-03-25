@@ -24,7 +24,7 @@ main {
 .column {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
+  align-content: flex-start;
   width: 100%;
 }
 
