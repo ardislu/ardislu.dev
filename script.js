@@ -1,5 +1,5 @@
 const main = document.getElementsByTagName("main")[0];
-const initialColumns = Math.max(1, Math.floor(main.clientWidth / 240) - 1);
+const initialColumns = Math.max(1, Math.floor(main.clientWidth / 360) - 1);
 
 /* Generic element builders */
 const createColumnElement = () => {
