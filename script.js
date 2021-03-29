@@ -14,12 +14,14 @@ const createColumnElement = () => {
 
 const createSkeletonElement = () => {
   const el = document.createElement("article");
+  el.classList.add("card");
   el.innerHTML = '<div class="skeleton-line"></div>'.repeat(6);
   return el;
 };
 
 const createArticleElement = (article) => {
   const el = document.createElement("article");
+  el.classList.add("card");
   el.innerHTML = `<h2>${article[0]}</h2><p>${article[1]}</p><p><a href="/posts/${article[2]}">Read More</a></p>`;
   return el;
 };

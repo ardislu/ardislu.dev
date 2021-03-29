@@ -23,11 +23,15 @@ a:hover, a:focus {
   text-decoration: underline;
 }
 
-main {
+.card-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
   grid-gap: 1rem;
-  justify-items: center;
+  margin: 0 auto;
+  max-width: 1440px;
+}
+
+.post {
   margin: 0 auto;
   max-width: 1440px;
 }
@@ -39,7 +43,7 @@ main {
   width: 100%;
 }
 
-article {
+.card {
   margin-bottom: 1rem;
   padding: 0 1rem;
   width: 100%;
