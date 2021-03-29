@@ -1,3 +1,7 @@
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js');
+}
+
 const main = document.getElementsByTagName("main")[0];
 const initialColumns = Math.max(1, Math.floor(main.clientWidth / 320) - 1);
 
