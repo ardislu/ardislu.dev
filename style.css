@@ -44,7 +44,7 @@ a:hover, a:focus {
 }
 
 .card {
-  margin-bottom: 1rem;
+  margin-block-end: 1rem;
   padding: 0 1rem;
   width: 100%;
   border: solid hsl(0deg 0% 0% / 10%);
