@@ -13,6 +13,16 @@ header {
   justify-content: center;
 }
 
+a {
+  color: hsl(216deg 100% 50%);
+  font-weight: bold;
+  text-decoration: none;
+}
+
+a:hover, a:focus {
+  text-decoration: underline;
+}
+
 main {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
