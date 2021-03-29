@@ -4,6 +4,7 @@ body {
     sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   color: hsl(0deg 0% 15%);
   background: hsl(0deg 0% 90%);
+  margin: 0 1rem;
 }
 
 header {
