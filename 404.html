@@ -40,7 +40,7 @@
       for (let content of googleDoc.body.content) {
         const tag = mapping[content?.paragraph?.paragraphStyle?.namedStyleType];
         if (tag !== undefined) {
-          articleContent += `${tag}${content.paragraph.elements[0].textRun.content}`
+          articleContent += `${tag}${content.paragraph.elements[0].textRun.content}`;
         }
       }
       article.innerHTML = marked(articleContent);
