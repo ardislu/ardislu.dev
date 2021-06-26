@@ -1,59 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Ardis Lu's personal blog." />
-    <link rel="icon" href="/favicon.ico" />
-    <link rel="stylesheet" href="/style.css" />
-    <title>ardislu.dev</title>
-  </head>
-  <body>
-    <header>
-      <a href="/">
-        <img src="/home.svg" width="24" height="24" alt="Home" />
-      </a>
-    </header>
-    <main>
-      <article class="post"></article>
-    </main>
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <script>
-      const article = document.getElementsByTagName("article")[0];
-      article.innerHTML = '<div class="skeleton-line"></div>'.repeat(20);
 
-      const mapping = {
-        TITLE: "# ",
-        SUBTITLE: "",
-        HEADING_1: "## ",
-        HEADING_2: "### ",
-        HEADING_3: "#### ",
-        NORMAL_TEXT: "",
-      };
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Ardis Lu's personal blog." />
+  <link rel="icon" href="/favicon.ico" />
+  <link rel="stylesheet" href="/style.css" />
+  <title>ardislu.dev</title>
+</head>
 
-      const inject = (googleDoc) => {
-        document.title = googleDoc.title;
-        article.innerHTML = "";
-        let articleContent = "";
-        for (let content of googleDoc.body.content) {
-          const tag = mapping[content?.paragraph?.paragraphStyle?.namedStyleType];
-          if (tag !== undefined) {
-            articleContent += `${tag}${content.paragraph.elements[0].textRun.content}`
-          }
+<body>
+  <header>
+    <a href="/">
+      <img src="/home.svg" width="24" height="24" alt="Home" />
+    </a>
+  </header>
+  <main>
+    <article class="post"></article>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script>
+    const article = document.getElementsByTagName("article")[0];
+    article.innerHTML = '<div class="skeleton-line"></div>'.repeat(20);
+
+    const mapping = {
+      TITLE: "# ",
+      SUBTITLE: "",
+      HEADING_1: "## ",
+      HEADING_2: "### ",
+      HEADING_3: "#### ",
+      NORMAL_TEXT: "",
+    };
+
+    const inject = (googleDoc) => {
+      document.title = googleDoc.title;
+      article.innerHTML = "";
+      let articleContent = "";
+      for (let content of googleDoc.body.content) {
+        const tag = mapping[content?.paragraph?.paragraphStyle?.namedStyleType];
+        if (tag !== undefined) {
+          articleContent += `${tag}${content.paragraph.elements[0].textRun.content}`
         }
-        article.innerHTML = marked(articleContent);
-      };
+      }
+      article.innerHTML = marked(articleContent);
+    };
 
-      (async () => {
-        const proxyUrl =
-          "https://script.google.com/macros/s/AKfycbzMHxwypbwsccBq6RH8LDCAOpM02C4gbkljbcKHKFsoQTRE-f4XTIyswiaO0vshs-Kr/exec";
-        const documentId = window.location.pathname.split("/").pop();
-        const url = `${proxyUrl}?https://docs.googleapis.com/v1/documents/${documentId}`;
+    (async () => {
+      const proxyUrl =
+        "https://script.google.com/macros/s/AKfycbzMHxwypbwsccBq6RH8LDCAOpM02C4gbkljbcKHKFsoQTRE-f4XTIyswiaO0vshs-Kr/exec";
+      const documentId = window.location.pathname.split("/").pop();
+      const url = `${proxyUrl}?https://docs.googleapis.com/v1/documents/${documentId}`;
 
-        await fetch(url)
-          .then((httpResponse) => httpResponse.json())
-          .then((googleDoc) => inject(googleDoc));
-      })();
-    </script>
-  </body>
+      await fetch(url)
+        .then((httpResponse) => httpResponse.json())
+        .then((googleDoc) => inject(googleDoc));
+    })();
+  </script>
+</body>
+
 </html>
