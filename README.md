@@ -10,7 +10,7 @@ I'm using Google Sheets and Google Docs as the CMS for this website. A Google Sh
 
 ## Google Doc -> markdown -> HTML
 
-Once I fetch an article from the Google Docs API, the article is converted into markdown then converted into HTML using [marked](marked.js.org).
+Once I fetch an article from the Google Docs API, the article is converted into markdown then converted into HTML using [marked](https://marked.js.org).
 
 ## 404.html as a router
 
