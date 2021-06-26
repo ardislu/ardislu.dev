@@ -17,31 +17,31 @@
     <main>
       <article class="post"></article>
     </main>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script>
       const article = document.getElementsByTagName("article")[0];
       article.innerHTML = '<div class="skeleton-line"></div>'.repeat(20);
 
       const mapping = {
-        TITLE: "h1",
-        SUBTITLE: "p",
-        HEADING_1: "h1",
-        HEADING_2: "h2",
-        HEADING_3: "h3",
-        NORMAL_TEXT: "p",
+        TITLE: "# ",
+        SUBTITLE: "",
+        HEADING_1: "## ",
+        HEADING_2: "### ",
+        HEADING_3: "#### ",
+        NORMAL_TEXT: "",
       };
 
       const inject = (googleDoc) => {
         document.title = googleDoc.title;
         article.innerHTML = "";
+        let articleContent = "";
         for (let content of googleDoc.body.content) {
-          const tag =
-            mapping[content?.paragraph?.paragraphStyle?.namedStyleType];
-          if (tag) {
-            const el = document.createElement(tag);
-            el.innerHTML = content.paragraph.elements[0].textRun.content;
-            article.insertAdjacentElement("beforeend", el);
+          const tag = mapping[content?.paragraph?.paragraphStyle?.namedStyleType];
+          if (tag !== undefined) {
+            articleContent += `${tag}${content.paragraph.elements[0].textRun.content}`
           }
         }
+        article.innerHTML = marked(articleContent);
       };
 
       (async () => {
