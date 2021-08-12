@@ -14,7 +14,7 @@ Once I fetch an article from the Google Docs API, the article is converted into 
 
 ## 404.html as a router
 
-GitHub Pages automatically redirects any `HTTP 404 Not Found` to `404.html` if it exists. I'm using `404.html` as a router for the blog posts dynamically fetched from the Google Sheet. Here's how to replicate GitHub Pages' treatment of `404.html` on a local development server:
+Cloudflare Pages automatically redirects any `HTTP 404 Not Found` to `404.html` if it exists. I'm using `404.html` as a router for the blog posts dynamically fetched from the Google Sheet. Here's how to replicate Cloudflare Pages' treatment of `404.html` on a local development server:
 
 1. Install Node.js (this is ONLY used for the web server; the website itself does not use Node.js)
 
