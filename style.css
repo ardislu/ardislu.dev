@@ -23,6 +23,14 @@ a:hover, a:focus {
   text-decoration: underline;
 }
 
+kbd {
+	font-family: Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace;
+	font-size: 0.75em;
+	padding: 0 0.5em;
+	border: 1px solid;
+	background-color: hsl(0deg 0% 94%);
+}
+
 .card-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
