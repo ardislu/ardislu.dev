@@ -13,6 +13,13 @@ header {
   justify-content: center;
 }
 
+h1 {
+  font-size: 2.25em;
+  text-align: center;
+  margin-block-start: 0.5em;
+  margin-block-end: 0.5em;
+}
+
 a {
   color: hsl(216deg 100% 45%);
   font-weight: bold;
