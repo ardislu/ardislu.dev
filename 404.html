@@ -24,22 +24,22 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/languages/powershell.min.js"></script>
   <script>
-    const article = document.getElementsByTagName("article")[0];
+    const article = document.getElementsByTagName('article')[0];
     article.innerHTML = '<div class="skeleton-line"></div>'.repeat(20);
 
     const mapping = {
-      TITLE: "# ",
-      SUBTITLE: "",
-      HEADING_1: "## ",
-      HEADING_2: "### ",
-      HEADING_3: "#### ",
-      NORMAL_TEXT: "",
+      TITLE: '# ',
+      SUBTITLE: '',
+      HEADING_1: '## ',
+      HEADING_2: '### ',
+      HEADING_3: '#### ',
+      NORMAL_TEXT: '',
     };
 
     const inject = (googleDoc) => {
       document.title = googleDoc.title;
-      article.innerHTML = "";
-      let articleContent = "";
+      article.innerHTML = '';
+      let articleContent = '';
       for (let content of googleDoc.body.content) {
         const tag = mapping[content?.paragraph?.paragraphStyle?.namedStyleType];
         const bullet = content?.paragraph?.bullet ? '- ' : '';
@@ -51,8 +51,8 @@
     };
 
     (async () => {
-      const proxyUrl = "https://cms.ardislu.dev/macros/s/AKfycbzMHxwypbwsccBq6RH8LDCAOpM02C4gbkljbcKHKFsoQTRE-f4XTIyswiaO0vshs-Kr/exec";
-      const documentId = window.location.pathname.split("/").pop();
+      const proxyUrl = 'https://cms.ardislu.dev/macros/s/AKfycbzMHxwypbwsccBq6RH8LDCAOpM02C4gbkljbcKHKFsoQTRE-f4XTIyswiaO0vshs-Kr/exec';
+      const documentId = window.location.pathname.split('/').pop();
       const url = `${proxyUrl}?https://docs.googleapis.com/v1/documents/${documentId}`;
 
       await fetch(url)
