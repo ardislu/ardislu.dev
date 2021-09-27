@@ -18,6 +18,6 @@ Cloudflare Pages automatically redirects any `HTTP 404 Not Found` to `404.html` 
 
 1. Install Node.js (this is ONLY used for the web server; the website itself does not use Node.js)
 
-2. `npm i -g local-web-server`
+2. `npm i -g http-server`
 
-3. `ws --rewrite '/posts/:id -> 404.html'`
+3. `http-server`
