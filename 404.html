@@ -16,6 +16,9 @@
     <a href="/">
       <img src="/home.svg" width="24" height="24" alt="Home" />
     </a>
+    <a id="edit">
+      <img src="/pencil.svg" width="24" height="24" alt="Edit this article" />
+    </a>
   </header>
   <main>
     <article class="post"></article>
@@ -54,6 +57,7 @@
       const proxyUrl = 'https://script.google.com/macros/s/AKfycbzMHxwypbwsccBq6RH8LDCAOpM02C4gbkljbcKHKFsoQTRE-f4XTIyswiaO0vshs-Kr/exec';
       const documentId = window.location.pathname.split('/').pop();
       const url = `${proxyUrl}?https://docs.googleapis.com/v1/documents/${documentId}`;
+      document.getElementById('edit').setAttribute('href', `https://docs.google.com/document/d/${documentId}/edit`);
 
       await fetch(url)
         .then((httpResponse) => httpResponse.json())
