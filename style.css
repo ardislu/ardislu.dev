@@ -62,9 +62,14 @@ kbd {
   margin-block-end: 1rem;
   padding: 0 1rem;
   width: 100%;
-  border: solid hsl(0deg 0% 0% / 10%);
+  border: solid hsl(0deg 0% 55% / .1);
   border-radius: 1rem;
-  box-shadow: 0.25rem 0.25rem hsl(0deg 0% 0% / 10%);
+  box-shadow:
+    0px 1px 1.1px hsl(0deg 0% 69% / 0.17),
+    0px 2.3px 2.6px -0.6px hsl(0deg 0% 69% / 0.17),
+    0px 4.3px 4.8px -1.2px hsl(0deg 0% 69% / 0.17),
+    0px 8.4px 9.5px -1.9px hsl(0deg 0% 69% / 0.17),
+    0.1px 16px 18px -2.5px hsl(0deg 0% 69% / 0.17);
 }
 
 @keyframes shimmer {
