@@ -39,9 +39,10 @@ kbd {
 
 .card-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
   grid-gap: 1rem;
-  margin: 0 auto;
+  margin-inline: auto;
+  margin-block-end: 1rem;
   max-width: 1440px;
 }
 
