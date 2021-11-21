@@ -30,11 +30,11 @@ a:hover, a:focus {
 }
 
 kbd {
-	font-family: Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace;
-	font-size: 0.75em;
+  font-family: Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace;
+  font-size: 0.75em;
   padding-inline: 0.5em;
-	border: 1px solid;
-	background-color: hsl(0deg 0% 94%);
+  border: 1px solid;
+  background-color: hsl(0deg 0% 94%);
 }
 
 .card-container {
