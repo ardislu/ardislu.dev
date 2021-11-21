@@ -26,7 +26,6 @@ const setRowSpan = (card) => {
     contentHeight += child.clientHeight;
   }
   card.style.gridRowEnd = `span ${Math.ceil(contentHeight / halfRemHeight)}` // Fit the card's row span to the height of the card's content
-  console.log(contentHeight, Math.ceil(contentHeight / halfRemHeight));
 }
 
 /* Inject placeholder skeleton loaders */
