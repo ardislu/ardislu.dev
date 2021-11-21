@@ -3,15 +3,9 @@ if ('serviceWorker' in navigator) {
 }
 
 const main = document.getElementsByTagName('main')[0];
-const initialColumns = Math.max(1, Math.floor(main.clientWidth / 320) - 1);
+const halfRemHeight = parseFloat(getComputedStyle(document.documentElement).fontSize) / 2;
 
 /* Generic element builders */
-const createColumnElement = () => {
-  const el = document.createElement('div');
-  el.classList.add('column');
-  return el;
-};
-
 const createSkeletonElement = () => {
   const el = document.createElement('article');
   el.classList.add('card');
@@ -26,27 +20,28 @@ const createArticleElement = (article) => {
   return el;
 };
 
-/* Inject placeholder skeleton loaders */
-for (let i = 0; i < initialColumns; i++) {
-  const col = createColumnElement();
-  for (let j = 0; j < 12; j++) {
-    const a = createSkeletonElement();
-    col.insertAdjacentElement('beforeend', a);
+const setRowSpan = (card) => {
+  let contentHeight = 0;
+  for (let child of card.children) {
+    contentHeight += child.clientHeight;
   }
-  main.insertAdjacentElement('beforeend', col);
+  card.style.gridRowEnd = `span ${Math.ceil(contentHeight / halfRemHeight)}` // Fit the card's row span to the height of the card's content
+  console.log(contentHeight, Math.ceil(contentHeight / halfRemHeight));
 }
+
+/* Inject placeholder skeleton loaders */
+for (let i = 0; i < 12; i++) {
+  const a = createSkeletonElement();
+  main.insertAdjacentElement('beforeend', a);
+};
 
 /* Callback to inject content from API */
 const inject = (resp) => {
   main.innerHTML = '';
-  const chunkSize = Math.ceil(resp.length / initialColumns);
-  for (let i = 0; i < initialColumns; i++) {
-    const col = createColumnElement();
-    const chunk = resp.splice(0, chunkSize);
-    for (let a of chunk) {
-      col.insertAdjacentElement('beforeend', createArticleElement(a));
-    }
-    main.insertAdjacentElement('beforeend', col);
+  for (let a of resp) {
+    const card = createArticleElement(a);
+    main.insertAdjacentElement('beforeend', card); // Must insert the element first because contentHeight is dynamic on card width
+    setRowSpan(card);
   }
 };
 

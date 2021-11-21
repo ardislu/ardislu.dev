@@ -51,17 +51,14 @@ kbd {
   max-width: 1440px;
 }
 
-.column {
-  display: flex;
-  flex-wrap: wrap;
-  align-content: flex-start;
-  width: 100%;
-}
-
 .card {
-  margin-block-end: 1rem;
-  padding: 0 1rem;
-  width: 100%;
+  grid-row-end: span 16; /* Will be updated to fit the content in each card by JavaScript */
+  box-sizing: border-box;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1rem;
   border: solid hsl(0deg 0% 55% / .1);
   border-radius: 1rem;
   box-shadow:
@@ -72,6 +69,10 @@ kbd {
     0.1px 16px 18px -2.5px hsl(0deg 0% 69% / 0.17);
 }
 
+.card > * {
+  margin: 0; /* Margins for children elements are already handled by gap in .card */
+}
+
 @keyframes shimmer {
   100% {
     background: hsl(0deg 0% 75%);
@@ -79,7 +80,6 @@ kbd {
 }
 
 .skeleton-line {
-  margin: 1rem;
   height: 1rem;
   animation: shimmer 1s alternate infinite;
   background: hsl(0deg 0% 50%);
