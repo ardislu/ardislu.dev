@@ -48,6 +48,7 @@ kbd {
 
 .skeleton-line {
   height: 1rem;
+  margin-block: 1rem;
   animation: shimmer 1s alternate infinite;
   background: hsl(0deg 0% 50%);
 }
