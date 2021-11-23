@@ -41,9 +41,15 @@ kbd {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(360px, 100%), 1fr));
   grid-gap: 1rem;
-  margin-inline: auto;
+  margin-inline: 1rem;
   margin-block-end: 1rem;
-  max-width: 1440px;
+}
+
+@media (min-width: 1440px) {
+  .card-container {
+    margin-inline: auto;
+    max-width: 1440px;
+  }
 }
 
 .skeleton-line {
@@ -82,6 +88,12 @@ kbd {
 }
 
 .post {
-  margin: 0 auto;
-  max-width: 1440px;
+  margin-inline: 1rem;
+}
+
+@media (min-width: 1440px) {
+  .post {
+    margin-inline: auto;
+    max-width: 1440px;
+  }
 }
