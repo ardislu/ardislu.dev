@@ -46,9 +46,16 @@ kbd {
   max-width: 1440px;
 }
 
-.post {
-  margin: 0 auto;
-  max-width: 1440px;
+.skeleton-line {
+  height: 1rem;
+  animation: shimmer 1s alternate infinite;
+  background: hsl(0deg 0% 50%);
+}
+
+@keyframes shimmer {
+  100% {
+    background: hsl(0deg 0% 75%);
+  }
 }
 
 .card {
@@ -73,14 +80,7 @@ kbd {
   margin: 0; /* Margins for children elements are already handled by gap in .card */
 }
 
-@keyframes shimmer {
-  100% {
-    background: hsl(0deg 0% 75%);
-  }
-}
-
-.skeleton-line {
-  height: 1rem;
-  animation: shimmer 1s alternate infinite;
-  background: hsl(0deg 0% 50%);
+.post {
+  margin: 0 auto;
+  max-width: 1440px;
 }
