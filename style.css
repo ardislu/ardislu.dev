@@ -25,9 +25,12 @@ a {
   color: hsl(216deg 100% 45%);
   font-weight: bold;
   text-decoration: none;
+  transition: 0.15s;
 }
 
 a:hover, a:focus {
+  background-color: hsl(30deg 80% 90%);
+  border-radius: 0.25rem;
   text-decoration: underline;
 }
 
