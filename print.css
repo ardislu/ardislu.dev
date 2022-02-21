@@ -17,7 +17,12 @@ h2 {
   font-size: 13pt;
 }
 
-p {
+h3 {
+  font-size: 12pt;
+}
+
+p,
+li {
   font-size: 11pt;
 }
 
