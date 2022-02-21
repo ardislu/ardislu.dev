@@ -1,0 +1,43 @@
+@page {
+  margin: 0.5in;
+}
+
+* {
+  background: transparent !important;
+  color: #000 !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+
+h1 {
+  font-size: 16pt;
+}
+
+h2 {
+  font-size: 13pt;
+}
+
+p {
+  font-size: 11pt;
+}
+
+a {
+  text-decoration: underline;
+}
+
+a[href]:after {
+  content: " (" attr(href) ")";
+}
+
+pre {
+  white-space: pre-wrap;
+}
+
+.card-container {
+  display: block;
+}
+
+.card {
+  break-inside: avoid;
+  border: none;
+}
