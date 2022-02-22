@@ -2,7 +2,7 @@ if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('/sw.js');
 }
 
-const main = document.getElementsByTagName('main')[0];
+const main = document.querySelector('main');
 const halfRemHeight = parseFloat(getComputedStyle(document.documentElement).fontSize) / 2;
 
 /* Generic element builders */
