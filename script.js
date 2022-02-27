@@ -9,6 +9,7 @@ if ('serviceWorker' in navigator) {
 
 /* Global data store for posts */
 const posts = new Map();
+window.POSTS = posts;
 
 /* Define components from the initial HTML templates */
 const components = new Map();
@@ -16,6 +17,7 @@ document.querySelectorAll('template').forEach(t => {
   components.set(t.id, t.content.firstElementChild);
   t.remove();
 });
+window.COMPONENTS = components;
 const homeHeader = components.get('home-header');
 const homeLoader = components.get('home-loader');
 const homeMain = components.get('home-main');
@@ -189,3 +191,25 @@ new ResizeObserver(_ => {
     card.style.gridRowEnd = `span ${Math.ceil(contentHeight / halfRemHeight)}`;
   }
 }).observe(homeMain);
+
+/* DevTools console help message */
+const ascii = 
+`                    _       _            _                 
+                    | (_)   | |          | |                
+        __ _ _ __ __| |_ ___| |_   _   __| | _____  __      
+       / _  |  __/ _  | / __| | | | | / _  |/ __| |/ /      
+      | |_| | | | |_| | |__ | | |_| || |_| |  __| V /       
+      |_____|_| |_____|_|___|_|_____(_)____|____|__/        
+                                                            
+ Poking around? Here are some globals that might be helpful:`;
+
+function help() {
+  console.log(`%c ${ascii}`, 'font-weight: bold')
+  console.table({
+    'POSTS': 'Map object containing all blog post metadata and content.',
+    'COMPONENTS': 'Map object containing live HTML elements of all the components used for the site.',
+    'help()': 'Print this message.'
+  });
+}
+help();
+window.help = help;
