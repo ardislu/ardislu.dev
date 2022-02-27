@@ -69,7 +69,6 @@ kbd {
 }
 
 .card {
-  grid-row-end: span 16; /* Will be updated to fit the content in each card by JavaScript */
   box-sizing: border-box;
   display: flex;
   flex-flow: column;
