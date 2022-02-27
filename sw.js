@@ -1,22 +1,31 @@
-const cacheName = 'v1';
+const cacheName = 'v2';
 
-self.addEventListener('install', event => {
-  event.waitUntil((async () => {
-    const cache = await caches.open(cacheName);
-    await cache.addAll(['index.html', '404.html', 'style.css', 'script.js', 'favicon.ico', 'github.svg', 'home.svg']);
-  })());
-});
+self.addEventListener('install', event => event.waitUntil(
+  caches.open(cacheName).then(cache => cache.addAll(
+    [
+      'index.html',
+      'favicon.ico',
+      'style.css',
+      'print.css',
+      'script.js',
+      'github.svg',
+      'home.svg',
+      'pencil.svg'
+    ]
+  ))
+));
 
-self.addEventListener('fetch', event => {
-  event.respondWith((async () => {
-    const fetchResponseP = fetch(event.request);
-    const fetchResponseCloneP = fetchResponseP.then(r => r.clone());
-
-    event.waitUntil((async () => {
-      const cache = await caches.open(cacheName);
-      await cache.add(event.request.url, await fetchResponseCloneP);
-    })());
-
-    return (await caches.match(event.request.url)) || fetchResponseP;
-  })());
-});
+self.addEventListener('fetch', event => event.respondWith(
+  caches.match(event.request, { ignoreVary: true }).then(response => {
+    if (response !== undefined) {
+      return response;
+    }
+    else {
+      return fetch(event.request).then(response => {
+        const responseClone = response.clone();
+        caches.open(cacheName).then(cache => cache.put(event.request, responseClone));
+        return response;
+      })
+    }
+  })
+));
