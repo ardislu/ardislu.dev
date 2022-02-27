@@ -6,19 +6,57 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Ardis Lu's personal blog.">
   <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/default.min.css">
   <link rel="stylesheet" href="/style.css">
   <link rel="stylesheet" href="/print.css" media="print">
   <title>ardislu.dev</title>
 </head>
 
 <body>
-  <header>
-    <h1>ardislu.dev</h1>
-    <a href="https://github.com/ardislu/ardislu.dev">
-      <img src="/github.svg" width="24" height="24" alt="GitHub">
-    </a>
-  </header>
-  <main class="card-container"></main>
+  <noscript>
+    This site uses JavaScript to fetch blog posts and implement client-side routing.
+    View this site's source code on <a href="https://github.com/ardislu/ardislu.dev">GitHub</a>.
+  </noscript>
+
+  <template id="home-header">
+    <header>
+      <h1>ardislu.dev</h1>
+      <a href="https://github.com/ardislu/ardislu.dev">
+        <img src="/github.svg" width="24" height="24" alt="GitHub">
+      </a>
+    </header>
+  </template>
+
+  <template id="home-loader">
+    <main class="card-container"></main>
+  </template>
+
+  <template id="home-main">
+    <main class="card-container"></main>
+  </template>
+
+  <template id="post-header">
+    <header class="post-header">
+      <a href="/">
+        <img src="/home.svg" width="24" height="24" alt="Home">
+      </a>
+      <a id="edit">
+        <img src="/pencil.svg" width="24" height="24" alt="Edit this article">
+      </a>
+    </header>
+  </template>
+
+  <template id="post-loader">
+    <main></main>
+  </template>
+
+  <template id="post-main">
+    <main></main>
+  </template>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/3.0.4/marked.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/languages/powershell.min.js"></script>
   <script src="/script.js"></script>
 </body>
 

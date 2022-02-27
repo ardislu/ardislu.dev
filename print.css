@@ -46,3 +46,7 @@ pre {
   break-inside: avoid;
   border: none;
 }
+
+.post-header {
+  display: none;
+}

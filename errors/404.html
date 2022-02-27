@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Ardis Lu's personal blog.">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/print.css" media="print">
+  <style>
+    main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      inline-size: min(100% - 2rem, 1440px);
+      margin-inline: auto;
+    }
+  </style>
+  <title>404: Not Found</title>
+</head>
+
+<body>
+  <header>
+    <h1>404: Not Found</h1>
+  </header>
+
+  <main>
+    <div class="skeleton-line"></div>
+    <p hidden>The page you requested does not exist.</p>
+
+    <a href="/">
+      <img src="/home.svg" width="24" height="24" alt="Home">
+    </a>
+  </main>
+
+  <script>
+    const message = document.querySelector('p');
+    const params = new URLSearchParams(window.location.search);
+    const request = params.get('r');
+    const suggestion = params.get('s');
+
+    if (request !== null && suggestion !== null) {
+      message.innerHTML = `"${request}" does not exist. Did you mean <a href=/${suggestion}>${suggestion}</a>?`;
+    }
+
+    document.querySelector('div').remove();
+    message.removeAttribute('hidden');
+  </script>
+</body>
+
+</html>
