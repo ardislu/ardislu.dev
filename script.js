@@ -1,3 +1,8 @@
+import { marked } from 'https://cdn.jsdelivr.net/npm/marked@4.0.12/lib/marked.esm.min.js';
+import hljs from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/es/highlight.min.js';
+import powershell from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/es/languages/powershell.min.js';
+hljs.registerLanguage('powershell', powershell);
+
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('/sw.js');
 }
