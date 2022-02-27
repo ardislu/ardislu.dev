@@ -34,6 +34,11 @@ a:hover, a:focus {
   text-decoration: underline;
 }
 
+svg {
+  width: 24px;
+  height: 24px;
+}
+
 kbd {
   background: linear-gradient(180deg, hsl(0deg 0% 86%), hsl(0deg 0% 94%));
   font-family: Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace;
