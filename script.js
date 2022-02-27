@@ -104,6 +104,7 @@ async function showPage(path) {
   }
 
   if (path === 'home' || path === '') {
+    document.title = 'ardislu.dev';
     homeMain.innerHTML = '';
     for (const [path, post] of posts) {
       homeMain.insertAdjacentHTML('beforeend',
