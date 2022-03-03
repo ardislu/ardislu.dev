@@ -7,10 +7,7 @@ self.addEventListener('install', event => event.waitUntil(
       'favicon.ico',
       'style.css',
       'print.css',
-      'script.js',
-      'github.svg',
-      'home.svg',
-      'pencil.svg'
+      'script.js'
     ]
   ))
 ));
