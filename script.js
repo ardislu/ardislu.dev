@@ -118,6 +118,8 @@ async function showPage(path) {
 
   if (path === '/home' || path === '/') {
     document.title = 'ardislu.dev';
+    head.description.content = 'Notes on web development, crypto, self-hosting, and tech in general.';
+    head.canonical.href = 'https://ardislu.dev';
     homeMain.innerHTML = '';
     for (const [path, post] of posts) {
       homeMain.insertAdjacentHTML('beforeend',
