@@ -25,6 +25,12 @@ const postHeader = components.get('post-header');
 const postLoader = components.get('post-loader');
 const postMain = components.get('post-main');
 
+/* Fetch important <head> elements for convenience */
+const head = {
+  description: document.querySelector('meta[name="description"]'),
+  canonical: document.querySelector('link[rel="canonical"]')
+};
+
 /* Hydrate the loaders */
 homeLoader.insertAdjacentHTML('beforeend',
   `<article class="card">
@@ -126,6 +132,8 @@ async function showPage(path) {
     const post = posts.get(path);
 
     document.title = post.title;
+    head.description.content = post.description;
+    head.canonical.href = `https://ardislu.dev${path}`;
     postHeader.querySelector('#edit').href = `https://docs.google.com/document/d/${post.id}/edit`;
 
     if (post.content === undefined) {
