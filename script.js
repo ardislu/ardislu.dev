@@ -204,14 +204,14 @@ new ResizeObserver(_ => {
 
 /* DevTools console help message */
 const ascii = 
-`                    _       _            _                 
-                    | (_)   | |          | |                
-        __ _ _ __ __| |_ ___| |_   _   __| | _____  __      
-       / _  |  __/ _  | / __| | | | | / _  |/ __| |/ /      
-      | |_| | | | |_| | |__ | | |_| || |_| |  __| V /       
-      |_____|_| |_____|_|___|_|_____(_)____|____|__/        
-                                                            
- Poking around? Here are some globals that might be helpful:`;
+`                   _       _            _                 
+                   | (_)   | |          | |                
+       ____ ____ __| |_ ___| |_   _   __| | _____  __      
+      / _  |  __/ _  | | __| | | | | / _  |/ __| |/ /      
+     | |_| | | | |_| | |__ | | |_| || |_| |  __| V /       
+     |_____|_| |_____|_|___|_|_____(_)____|____|__/        
+                                                           
+Poking around? Here are some globals that might be helpful:`;
 
 function help() {
   console.log(`%c ${ascii}`, 'font-weight: bold')
