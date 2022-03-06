@@ -96,7 +96,7 @@ async function showPage(path) {
   document.body.innerHTML = '';
 
   // Determine which placeholders to show
-  if (path === 'home' || path === '') {
+  if (path === '/home' || path === '/') {
     document.body.appendChild(homeHeader);
     document.body.appendChild(homeLoader);
   }
@@ -110,13 +110,13 @@ async function showPage(path) {
     await fetchPostMetadata();
   }
 
-  if (path === 'home' || path === '') {
+  if (path === '/home' || path === '/') {
     document.title = 'ardislu.dev';
     homeMain.innerHTML = '';
     for (const [path, post] of posts) {
       homeMain.insertAdjacentHTML('beforeend',
         `<article class="card">
-          <h2>${post.title}</h2><p>${post.description}</p><p><a href="/${path}">${post.linkText}</a></p>
+          <h2>${post.title}</h2><p>${post.description}</p><p><a href="${path}">${post.linkText}</a></p>
         </article>`);
     }
     homeLoader.remove();
@@ -163,11 +163,11 @@ function route(href) {
   }
 
   window.history.pushState({}, '', url);
-  showPage(url.pathname.substring(1));
+  showPage(url.pathname);
 }
 
 /* Set event handlers for client-side routing */
-window.addEventListener('popstate', _ => showPage(window.location.pathname.substring(1)));
+window.addEventListener('popstate', _ => showPage(window.location.pathname));
 document.addEventListener('click', e => {
   e.preventDefault();
   const anchor = e.target.closest('a');
@@ -178,7 +178,7 @@ document.addEventListener('click', e => {
 });
 
 // Show the current URL (to support direct linking aka deep links)
-showPage(window.location.pathname.substring(1));
+showPage(window.location.pathname);
 
 /* Set grid-row-end for each card on homeMain resize. Required to implement masonry layout. */
 new ResizeObserver(_ => {
