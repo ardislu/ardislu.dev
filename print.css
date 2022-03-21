@@ -38,6 +38,10 @@ pre {
   white-space: pre-wrap;
 }
 
+code {
+  border: 1pt solid;
+}
+
 .card-container {
   display: block;
 }
