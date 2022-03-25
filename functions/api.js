@@ -63,10 +63,9 @@ export async function onRequestGet({ request, env }) {
   const url = new URL(request.url);
   const queryString = decodeURIComponent(url.search.substring(1));
 
-  // Cloudflare Workers inserts "//" in front of all environment variables, need to delete it
-  const email = env.EMAIL.substring(2) // E.g. "example@example.com"
-  const privateKey = env.PRIVATE_KEY.substring(2) // E.g. "-----BEGIN PRIVATE KEY-----\n...EXAMPLE...\n-----END PRIVATE KEY-----\n"
-  const scopes = env.SCOPES.substring(2) // E.g. "https://example.com/auth/scope1 https://example.com/auth/scope2"
+  const email = env.EMAIL // E.g. "example@example.com"
+  const privateKey = env.PRIVATE_KEY // E.g. "-----BEGIN PRIVATE KEY-----\n...EXAMPLE...\n-----END PRIVATE KEY-----\n"
+  const scopes = env.SCOPES // E.g. "https://example.com/auth/scope1 https://example.com/auth/scope2"
 
   const token = await getGoogleAuthToken(email, privateKey, scopes);
 
