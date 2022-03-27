@@ -23,7 +23,7 @@ async function sign(message, privateKey) {
     ['sign']
   );
 
-  const signatureBuffer = await crypto.subtle.sign('RSASSA-PKCS1-V1_5', signingKey, message);
+  const signatureBuffer = await crypto.subtle.sign('RSASSA-PKCS1-V1_5', signingKey, new TextEncoder().encode(message));
   return base64UrlEncode(String.fromCharCode(...new Uint8Array(signatureBuffer)));
 }
 
