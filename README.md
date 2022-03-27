@@ -6,7 +6,7 @@ Also check out my [main website](https://ardis.lu)!
 
 ## Google Sheets and Google Docs as a Content Management System (CMS)
 
-I'm using Google Sheets and Google Docs as the CMS for this website. A Google Sheet stores the content for the cards on the homepage. Then, each blog post is contained in its own separate Google Doc. Both the Google Sheet and the Google Docs are queried through a Google Apps Script proxy web server ([google-api-proxy](https://github.com/ardislu/google-api-proxy)). The proxy allows anonymous queries to the Google Sheets/Docs APIs (which normally require OAuth 2.0 authorization, even for publicly available documents).
+I'm using Google Sheets and Google Docs as the CMS for this website. A Google Sheet stores the content for the cards on the homepage. Then, each blog post is contained in its own separate Google Doc. Both the Google Sheet and the Google Docs are queried through a Cloudflare Worker proxy (`/functions/api`). The proxy inserts service account credentials so the Google Sheets/Docs APIs can be called (Google APIs require OAuth 2.0 authorization, even for publicly available documents).
 
 ## Google Doc -> markdown -> HTML
 
