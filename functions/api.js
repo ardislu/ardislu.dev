@@ -75,5 +75,8 @@ export async function onRequestGet({ request, env }) {
     }
   });
 
-  return response;
+  const newResponse = new Response(response.body, response);
+  newResponse.headers.set('Cache-Control', 'max-age=86400, stale-while-revalidate=604800');
+
+  return newResponse;
 }
