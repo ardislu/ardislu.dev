@@ -20,4 +20,4 @@ From the [Cloudflare Pages documentation](https://developers.cloudflare.com/page
 
 1. `npm i wrangler@beta`
 
-2. `npx wrangler pages dev . --binding EMAIL=\"example@example.com" PRIVATE_KEY=\"-----BEGIN PRIVATE KEY-----\n...EXAMPLE...\n-----END PRIVATE KEY-----\n" SCOPES=\"https://example.com/auth/scope1 https://example.com/auth/scope2"`
+2. `npx wrangler pages dev . --binding EMAIL="example@example.com" PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n...EXAMPLE...\n-----END PRIVATE KEY-----\n" SCOPES="https://example.com/auth/scope1 https://example.com/auth/scope2"`
