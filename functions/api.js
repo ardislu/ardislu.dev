@@ -70,6 +70,10 @@ export async function onRequestGet({ request, env }) {
   const token = await getGoogleAuthToken(email, privateKey, scopes);
 
   const response = await fetch(queryString, {
+    cf: {
+      cacheEverything: true,
+      cacheTtl: 86400
+    },
     headers: {
       Authorization: `Bearer ${token}`
     }
