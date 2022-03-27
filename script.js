@@ -49,7 +49,8 @@ postLoader.insertAdjacentHTML('beforeend',
 
 /* Call the CMS controller to get all post metadata. Note: must call fetchPostContent to get content. */
 async function fetchPostMetadata() {
-  const proxyUrl = '/api';
+  const proxyUrl = 'https://script.google.com/macros/s/AKfycbzMHxwypbwsccBq6RH8LDCAOpM02C4gbkljbcKHKFsoQTRE-f4XTIyswiaO0vshs-Kr/exec';
+  // const proxyUrl = '/api'; // Works locally but not when deployed. Ref: https://github.com/cloudflare/wrangler2/issues/710
   const controllerId = '1pfGF8yBu3D0GPTezygLuzu3Cif8SkjhtG98nL-czlhc';
   const range = 'B3:I';
   const url = `${proxyUrl}?https://sheets.googleapis.com/v4/spreadsheets/${controllerId}/values/${range}`;
@@ -75,7 +76,8 @@ async function fetchPostMetadata() {
 /* Get content for the given path */
 async function fetchPostContent(path) {
   const post = posts.get(path);
-  const proxyUrl = '/api';
+  const proxyUrl = 'https://script.google.com/macros/s/AKfycbzMHxwypbwsccBq6RH8LDCAOpM02C4gbkljbcKHKFsoQTRE-f4XTIyswiaO0vshs-Kr/exec';
+  // const proxyUrl = '/api'; // Works locally but not when deployed. Ref: https://github.com/cloudflare/wrangler2/issues/710
   const url = `${proxyUrl}?https://docs.googleapis.com/v1/documents/${post.id}`;
 
   const mapping = {
