@@ -1,10 +1,11 @@
-const cacheName = 'v2';
+const cacheName = 'v3';
 
 self.addEventListener('install', event => event.waitUntil(
   caches.open(cacheName).then(cache => cache.addAll(
     [
       'index.html',
-      'favicon.ico',
+      'favicon.svg',
+      'apple-touch-icon.png',
       'style.css',
       'print.css',
       'script.js'
