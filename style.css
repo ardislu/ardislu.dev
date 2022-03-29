@@ -93,3 +93,7 @@ kbd {
   inline-size: min(100% - 2rem, 1440px);
   margin-inline: auto;
 }
+
+.post p {
+  line-height: 1.5;
+}
