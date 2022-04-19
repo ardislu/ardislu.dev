@@ -25,6 +25,7 @@ a {
   color: hsl(216deg 100% 45%);
   font-weight: bold;
   text-decoration-color: transparent;
+  text-underline-offset: 0.1em;
   transition: 0.15s;
 }
 
