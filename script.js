@@ -1,6 +1,6 @@
-import { marked } from 'https://cdn.jsdelivr.net/npm/marked@4.0.12/lib/marked.esm.min.js';
-import hljs from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/es/highlight.min.js';
-import powershell from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/es/languages/powershell.min.js';
+import { marked } from 'https://cdn.jsdelivr.net/npm/marked@4.0.17/lib/marked.esm.min.js';
+import hljs from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/es/highlight.min.js';
+import powershell from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/es/languages/powershell.min.js';
 hljs.registerLanguage('powershell', powershell);
 
 navigator.serviceWorker.register('/sw.js');
