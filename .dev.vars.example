@@ -1,0 +1,3 @@
+EMAIL="example@example.com"
+PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n...EXAMPLE...\n-----END PRIVATE KEY-----\n"
+SCOPES="https://www.googleapis.com/auth/spreadsheets.readonly https://www.googleapis.com/auth/documents.readonly"

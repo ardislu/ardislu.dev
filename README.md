@@ -14,10 +14,10 @@ Once I fetch an article from the Google Docs API, the article is converted into 
 
 ## Local development
 
-Use the `wrangler` CLI to serve the static frontend and API at the same time. Provide credentials for a service account with access to the Google Docs as environment variables.
+Use the `wrangler` CLI to serve the static frontend and API at the same time.
 
-From the [Cloudflare Pages documentation](https://developers.cloudflare.com/pages/platform/functions/#develop-and-preview-locally):
+1. Copy `.dev.vars.example` and rename it to `.dev.vars`. Provide an email and private key for a service account with access to the Google Docs and Google Sheet.
 
-1. `npm i wrangler@beta`
+2. `npm i wrangler@beta`
 
-2. `npx wrangler pages dev . --binding EMAIL="example@example.com" PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n...EXAMPLE...\n-----END PRIVATE KEY-----\n" SCOPES="https://example.com/auth/scope1 https://example.com/auth/scope2"`
+3. `npx wrangler pages dev .`
