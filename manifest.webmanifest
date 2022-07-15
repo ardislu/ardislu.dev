@@ -1,16 +1,21 @@
 {
   "name": "ardislu.dev",
-  "short_name": "ardislu.dev",
   "description": "Notes on web development, crypto, self-hosting, and tech in general.",
+  "display": "standalone",
+  "id": "/",
   "start_url": "/",
   "scope": "/",
-  "display": "standalone",
   "theme_color": "#e6e6e6",
-  "background_color": "#e7d26a",
+  "background_color": "#e6e6e6",
   "icons": [
     {
-      "src": "/favicon.svg",
-      "sizes": "144x144"
+      "src": "/logo.png",
+      "sizes": "512x512"
+    },
+    {
+      "src": "/logo_maskable.png",
+      "sizes": "512x512",
+      "purpose": "maskable"
     }
   ]
 }
