@@ -16,10 +16,9 @@ document.querySelectorAll('template').forEach(t => {
   t.remove();
 });
 window.COMPONENTS = components;
-const homeHeader = components.get('home-header');
+const header = components.get('header');
 const homeLoader = components.get('home-loader');
 const homeMain = components.get('home-main');
-const postHeader = components.get('post-header');
 const postLoader = components.get('post-loader');
 const postMain = components.get('post-main');
 
@@ -106,11 +105,11 @@ async function showPage(path) {
 
   // Determine which placeholders to show
   if (path === '/home' || path === '/') {
-    document.body.appendChild(homeHeader);
+    document.body.appendChild(header);
     document.body.appendChild(homeLoader);
   }
   else {
-    document.body.appendChild(postHeader);
+    document.body.appendChild(header);
     document.body.appendChild(postLoader);
   }
 
@@ -126,6 +125,7 @@ async function showPage(path) {
     head.ogTitle.content = 'ardislu.dev';
     head.ogDescription.content = 'Notes on web development, crypto, self-hosting, and tech in general.';
     head.ogUrl.content = 'https://ardislu.dev';
+    header.querySelector('#edit').href = `https://docs.google.com/spreadsheets/d/1pfGF8yBu3D0GPTezygLuzu3Cif8SkjhtG98nL-czlhc/edit`;
     homeMain.innerHTML = '';
     for (const [path, post] of posts) {
       homeMain.insertAdjacentHTML('beforeend',
@@ -145,7 +145,7 @@ async function showPage(path) {
     head.ogTitle.content = post.title;
     head.ogDescription.content = post.description;
     head.ogUrl.content = `https://ardislu.dev${path}`;
-    postHeader.querySelector('#edit').href = `https://docs.google.com/document/d/${post.id}/edit`;
+    header.querySelector('#edit').href = `https://docs.google.com/document/d/${post.id}/edit`;
 
     if (post.content === undefined) {
       await fetchPostContent(path);

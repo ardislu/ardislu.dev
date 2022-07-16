@@ -9,6 +9,10 @@
   text-shadow: none !important;
 }
 
+header {
+  display: none;
+}
+
 h1 {
   font-size: 16pt;
 }
@@ -49,8 +53,4 @@ code {
 .card {
   break-inside: avoid;
   border: none;
-}
-
-.post-header {
-  display: none;
 }
