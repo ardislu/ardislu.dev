@@ -126,8 +126,6 @@ async function showPage(path) {
     head.ogTitle.content = 'ardislu.dev';
     head.ogDescription.content = 'Notes on web development, crypto, self-hosting, and tech in general.';
     head.ogUrl.content = 'https://ardislu.dev';
-    head.ogImage.content = 'https://og-image.ardislu.dev/Notes%20on%20**web%20development**%2C%20**crypto**%2C%20**self-hosting**%2C%20and%20**tech**%20in%20general..png';
-    head.ogImageAlt.content = "Website logo above the text 'notes on web development, crypto, self-hosting, and tech in general.'";
     homeMain.innerHTML = '';
     for (const [path, post] of posts) {
       homeMain.insertAdjacentHTML('beforeend',
@@ -147,8 +145,6 @@ async function showPage(path) {
     head.ogTitle.content = post.title;
     head.ogDescription.content = post.description;
     head.ogUrl.content = `https://ardislu.dev${path}`;
-    head.ogImage.content = `https://og-image.ardislu.dev/${encodeURIComponent(post.title)}.png`;
-    head.ogImageAlt.content = `Website logo above the text '${post.title}'`;
     postHeader.querySelector('#edit').href = `https://docs.google.com/document/d/${post.id}/edit`;
 
     if (post.content === undefined) {
