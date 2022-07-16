@@ -7,7 +7,7 @@ navigator.serviceWorker.register('/sw.js');
 
 /* Global data store for posts */
 const posts = new Map();
-window.POSTS = posts;
+globalThis.POSTS = posts;
 
 /* Define components from the initial HTML templates */
 const components = new Map();
@@ -15,7 +15,7 @@ document.querySelectorAll('template').forEach(t => {
   components.set(t.id, t.content.firstElementChild);
   t.remove();
 });
-window.COMPONENTS = components;
+globalThis.COMPONENTS = components;
 const header = components.get('header');
 const homeLoader = components.get('home-loader');
 const homeMain = components.get('home-main');
@@ -164,7 +164,7 @@ async function showPage(path) {
     // MUST redirect to a page where the web server serves an actual 404 error (i.e. not just 
     // index.html again) otherwise this triggers an infinite loop
     document.title = '404: Not Found';
-    window.location.replace(`${window.location.protocol}//${window.location.host}/errors/NotFound`);
+    location.replace(`${location.protocol}//${location.host}/errors/NotFound`);
   }
 }
 
@@ -172,21 +172,21 @@ function route(href) {
   const url = new URL(href);
 
   // If the new page is equal to the current page, don't do anything
-  if (window.location.href === url.href) {
+  if (location.href === url.href) {
     return;
   }
   // If the new page is on a different host, redirect as expected
-  if (window.location.host !== url.host) {
-    window.location.href = href;
+  if (location.host !== url.host) {
+    location.href = href;
     return;
   }
 
-  window.history.pushState({}, '', url);
+  history.pushState({}, '', url);
   showPage(url.pathname);
 }
 
 /* Set event handlers for client-side routing */
-window.addEventListener('popstate', _ => showPage(window.location.pathname));
+globalThis.addEventListener('popstate', _ => showPage(location.pathname));
 document.addEventListener('click', e => {
   e.preventDefault();
   const anchor = e.target.closest('a');
@@ -197,7 +197,7 @@ document.addEventListener('click', e => {
 });
 
 // Show the current URL (to support direct linking aka deep links)
-showPage(window.location.pathname);
+showPage(location.pathname);
 
 /* Set grid-row-end for each card on homeMain resize. Required to implement masonry layout. */
 new ResizeObserver(_ => {
@@ -231,4 +231,4 @@ function help() {
   });
 }
 help();
-window.help = help;
+globalThis.help = help;
