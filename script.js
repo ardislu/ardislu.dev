@@ -3,7 +3,15 @@ import hljs from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/bui
 import powershell from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/es/languages/powershell.min.js';
 hljs.registerLanguage('powershell', powershell);
 
+/* Set up logic for stale-while-revalidate cache strategy */
 navigator.serviceWorker.register('/sw.js');
+const cacheChannel = new BroadcastChannel('cache');
+cacheChannel.addEventListener('message', e => {
+  // Ignore static assets like logo.svg, style.css, script.js, etc. 
+  if (new URL(e.data.resource).pathname === '/api' && e.data.isUpdated) {
+    document.body.append(toast);
+  }
+});
 
 /* Global data store for posts */
 const posts = new Map();
@@ -21,6 +29,8 @@ const homeLoader = components.get('home-loader');
 const homeMain = components.get('home-main');
 const postLoader = components.get('post-loader');
 const postMain = components.get('post-main');
+const toast = components.get('toast');
+toast.querySelector('button').addEventListener('click', _ => location.reload());
 
 /* Fetch important <head> elements for convenience */
 const head = {

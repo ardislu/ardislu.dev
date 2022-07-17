@@ -109,3 +109,37 @@ kbd {
 .post p {
   line-height: 1.5;
 }
+
+dialog {
+  position: fixed;
+  inset-block-end: 1rem;
+  background: hsl(50deg 72% 80%);
+  padding: 1rem;
+  border: solid hsl(50deg 72% 55% / 0.1);
+  border-radius: 1rem;
+  box-shadow:
+    0px 1px 1.1px hsl(50deg 72% 69% / 0.17),
+    0px 2.3px 2.6px -0.6px hsl(50deg 72% 69% / 0.17),
+    0px 4.3px 4.8px -1.2px hsl(50deg 72% 69% / 0.17),
+    0px 8.4px 9.5px -1.9px hsl(50deg 72% 69% / 0.17),
+    0.1px 16px 18px -2.5px hsl(50deg 72% 69% / 0.17);
+}
+
+dialog * {
+  display: inline;
+}
+
+dialog > button {
+  cursor: pointer;
+  text-transform: uppercase;
+  font-weight: bold;
+  background: hsl(216deg 100% 80%);
+  padding: 0.25rem;
+  border: 1px hsl(216deg 100% 70%) solid;
+  border-radius: 0.5rem;
+  transition: 0.15s;
+}
+
+dialog > button:hover, dialog > button:focus {
+  background-color: hsl(216deg 100% 70%);
+}

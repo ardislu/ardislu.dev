@@ -1,29 +1,35 @@
-const cacheName = 'v3';
+const cacheName = 'v4';
+const cacheChannel = new BroadcastChannel('cache');
 
-self.addEventListener('install', event => event.waitUntil(
-  caches.open(cacheName).then(cache => cache.addAll(
-    [
-      'index.html',
-      'favicon.svg',
-      'apple-touch-icon.png',
-      'style.css',
-      'print.css',
-      'script.js'
-    ]
-  ))
-));
+async function revalidate(request) {
+  const cachePromise = caches.match(request);
+  const originPromise = fetch(request);
+  const [cacheResponse, originResponse] = await Promise.all([cachePromise, originPromise]);
 
-self.addEventListener('fetch', event => event.respondWith(
-  caches.match(event.request, { ignoreVary: true }).then(response => {
-    if (response !== undefined) {
-      return response;
-    }
-    else {
-      return fetch(event.request).then(response => {
-        const responseClone = response.clone();
-        caches.open(cacheName).then(cache => cache.put(event.request, responseClone));
-        return response;
-      })
-    }
-  })
-));
+  // Must make clones before calling .text()
+  const originClone = originResponse.clone(); // For updating the cache
+  const originClone2 = originResponse.clone(); // For the function to return
+
+  const [cacheText, responseText] = await Promise.all([cacheResponse?.text(), originResponse?.text()]);
+
+  if (originResponse.ok && cacheText !== responseText) {
+    caches.open(cacheName)
+      .then(cache => cache.put(request, originClone))
+      .then(() => cacheChannel.postMessage({
+        resource: request.url,
+        isCreated: cacheText === undefined,
+        isUpdated: cacheText !== undefined
+      }));
+  }
+
+  return originClone2;
+}
+
+// Implements stale-while-revalidate strategy: if there's anything in the cache, return that immediately.
+// Wait for the origin server's response in parallel and notify cacheChannel if the cache changed.
+globalThis.addEventListener('fetch', event => {
+  event.respondWith(caches.match(event.request).then(cacheResponse => {
+    const originResponse = revalidate(event.request);
+    return cacheResponse === undefined ? originResponse : cacheResponse;
+  }));
+});
