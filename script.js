@@ -110,14 +110,13 @@ async function fetchPostContent(path) {
 /* Client-side routing */
 async function showPage(path) {
   document.body.innerHTML = '';
+  document.body.appendChild(header);
 
   // Determine which placeholders to show
   if (path === '/home' || path === '/') {
-    document.body.appendChild(header);
     document.body.appendChild(homeLoader);
   }
   else {
-    document.body.appendChild(header);
     document.body.appendChild(postLoader);
   }
 
