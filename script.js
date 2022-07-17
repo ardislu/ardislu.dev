@@ -39,8 +39,6 @@ const head = {
   ogTitle: document.querySelector('meta[property="og:title"]'),
   ogDescription: document.querySelector('meta[property="og:description"]'),
   ogUrl: document.querySelector('meta[property="og:url"]'),
-  ogImage: document.querySelector('meta[property="og:image"]'),
-  ogImageAlt: document.querySelector('meta[property="og:image:alt"]')
 };
 
 /* Hydrate the loaders */
