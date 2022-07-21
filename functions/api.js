@@ -11,13 +11,5 @@ export async function onRequestGet({ request, env }) {
 
   const token = await getGoogleAuthToken(env.EMAIL, env.PRIVATE_KEY, env.SCOPES);
 
-  return fetch(queryUrl, {
-    cf: {
-      cacheEverything: true,
-      cacheTtl: 86400
-    },
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
-  });
+  return fetch(queryUrl, { headers: { Authorization: `Bearer ${token}` } });
 }
