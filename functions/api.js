@@ -11,7 +11,7 @@ export async function onRequestGet({ request, env }) {
 
   const token = await getGoogleAuthToken(env.EMAIL, env.PRIVATE_KEY, env.SCOPES);
 
-  const response = await fetch(queryUrl, {
+  return fetch(queryUrl, {
     cf: {
       cacheEverything: true,
       cacheTtl: 86400
@@ -20,9 +20,4 @@ export async function onRequestGet({ request, env }) {
       Authorization: `Bearer ${token}`
     }
   });
-
-  const newResponse = new Response(response.body, response);
-  newResponse.headers.set('Cache-Control', 'max-age=86400, stale-while-revalidate=604800');
-
-  return newResponse;
 }
