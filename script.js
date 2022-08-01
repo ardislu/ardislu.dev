@@ -4,7 +4,7 @@ import powershell from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5
 hljs.registerLanguage('powershell', powershell);
 
 /* Set up logic for stale-while-revalidate cache strategy */
-navigator.serviceWorker.register('/sw.js');
+navigator.serviceWorker?.register('/sw.js'); // serviceWorker is disabled on Firefox Private Browsing
 const cacheChannel = new BroadcastChannel('cache');
 cacheChannel.addEventListener('message', e => {
   // Ignore static assets like logo.svg, style.css, script.js, etc. 
