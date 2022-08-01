@@ -9,7 +9,7 @@ const cacheChannel = new BroadcastChannel('cache');
 cacheChannel.addEventListener('message', e => {
   // Ignore static assets like logo.svg, style.css, script.js, etc. 
   if (new URL(e.data.resource).pathname === '/api' && e.data.isUpdated) {
-    document.body.append(toast);
+    toast.show();
   }
 });
 
@@ -23,14 +23,15 @@ document.querySelectorAll('template').forEach(t => {
   components.set(t.id, t.content.firstElementChild);
   t.remove();
 });
+components.set('header', document.querySelector('header'));
+components.set('toast', document.querySelector('dialog'));
 globalThis.COMPONENTS = components;
 const header = components.get('header');
 const homeLoader = components.get('home-loader');
 const homeMain = components.get('home-main');
 const postLoader = components.get('post-loader');
 const postMain = components.get('post-main');
-const toast = components.get('toast');
-toast.querySelector('button').addEventListener('click', _ => location.reload());
+document.querySelector('dialog > button').addEventListener('click', _ => location.reload());
 
 /* Fetch important <head> elements for convenience */
 const head = {
@@ -109,15 +110,12 @@ async function fetchPostContent(path) {
 
 /* Client-side routing */
 async function showPage(path) {
-  document.body.innerHTML = '';
-  document.body.appendChild(header);
-
   // Determine which placeholders to show
   if (path === '/home' || path === '/') {
-    document.body.appendChild(homeLoader);
+    document.querySelector('main').replaceWith(homeLoader);
   }
   else {
-    document.body.appendChild(postLoader);
+    document.querySelector('main').replaceWith(postLoader);
   }
 
   // Load all post metadata if it hasn't been loaded yet
@@ -140,8 +138,7 @@ async function showPage(path) {
           <h2>${post.title}</h2><p>${post.description}</p><p><a href="${path}">${post.linkText}</a></p>
         </article>`);
     }
-    homeLoader.remove();
-    document.body.appendChild(homeMain);
+    document.querySelector('main').replaceWith(homeMain);
   }
   else if (posts.has(path)) {
     const post = posts.get(path);
@@ -163,8 +160,7 @@ async function showPage(path) {
       `<article class="post">
         ${marked(post.content)}
       </article>`);
-    postLoader.remove();
-    document.body.appendChild(postMain);
+    document.querySelector('main').replaceWith(postMain);
     hljs.highlightAll();
   }
   else {
