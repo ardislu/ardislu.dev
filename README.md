@@ -18,6 +18,4 @@ Use the `wrangler` CLI to serve the static frontend and API at the same time.
 
 1. Copy `.dev.vars.example` and rename it to `.dev.vars`. Provide an email and private key for a service account with access to the Google Docs and Google Sheet.
 
-2. `npm i wrangler@beta`
-
-3. `npx wrangler pages dev .`
+2. `npx wrangler pages dev .`
