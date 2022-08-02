@@ -170,7 +170,7 @@ async function showPage(path) {
     // MUST redirect to a page where the web server serves an actual 404 error (i.e. not just 
     // index.html again) otherwise this triggers an infinite loop
     document.title = '404: Not Found';
-    location.replace(`${location.protocol}//${location.host}/errors/NotFound`);
+    location.replace(`${location.origin}/errors/NotFound`);
   }
 }
 
