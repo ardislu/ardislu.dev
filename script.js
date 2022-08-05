@@ -183,9 +183,11 @@ function route(href) {
     location.href = href;
     return;
   }
-
-  history.pushState({}, '', url);
-  showPage(url.pathname);
+  // For all other routes, use client-side routing 
+  else {
+    history.pushState({}, '', url);
+    showPage(url.pathname);
+  }
 }
 
 /* Set event handlers for client-side routing */
