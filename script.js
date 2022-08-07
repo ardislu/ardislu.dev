@@ -3,7 +3,8 @@ import hljs from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.6.0/bui
 import powershell from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.6.0/build/es/languages/powershell.min.js';
 hljs.registerLanguage('powershell', powershell);
 
-/* Set up logic for stale-while-revalidate cache strategy */
+/* Set up stale-while-revalidate cache strategy: if there's anything in the cache, return that immediately.
+  Wait for the origin server's response in parallel and show the refresh toast if the cache changed. */
 navigator.serviceWorker?.register('/sw.js'); // serviceWorker is disabled on Firefox Private Browsing
 const cacheChannel = new BroadcastChannel('cache');
 cacheChannel.addEventListener('message', e => {
@@ -12,77 +13,70 @@ cacheChannel.addEventListener('message', e => {
     toast.show();
   }
 });
-
-/* Global data store for posts */
-const posts = new Map();
-globalThis.POSTS = posts;
-
-/* Define components from the initial HTML templates */
-const components = new Map();
-document.querySelectorAll('template').forEach(t => {
-  components.set(t.id, t.content.firstElementChild);
-  t.remove();
-});
-components.set('header', document.querySelector('header'));
-components.set('toast', document.querySelector('dialog'));
-globalThis.COMPONENTS = components;
-const header = components.get('header');
-const homeLoader = components.get('home-loader');
-const homeMain = components.get('home-main');
-const postLoader = components.get('post-loader');
-const postMain = components.get('post-main');
 document.querySelector('dialog > button').addEventListener('click', _ => location.reload());
 
-/* Fetch important <head> elements for convenience */
-const head = {
-  description: document.querySelector('meta[name="description"]'),
-  canonical: document.querySelector('link[rel="canonical"]'),
-  ogTitle: document.querySelector('meta[property="og:title"]'),
-  ogDescription: document.querySelector('meta[property="og:description"]'),
-  ogUrl: document.querySelector('meta[property="og:url"]'),
-};
+/* Global store for homepage metadata and HTML components. */
+globalThis.metadata = new Map();
+globalThis.components = new Map();
 
-/* Hydrate the loaders */
-homeLoader.insertAdjacentHTML('beforeend',
-  `<article class="card">
-    ${'<div class="skeleton-line"></div>'.repeat(6)}
-  </article>`.repeat(12));
-
-postLoader.insertAdjacentHTML('beforeend',
-  `<article class="post">
-    ${'<div class="skeleton-line"></div>'.repeat(25)}
-  </article>`);
-
-/* Call the CMS controller to get all post metadata. Note: must call fetchPostContent to get content. */
+/* Call the CMS controller via Google Sheets API to get all post metadata. Returns a new Map object containing
+  the metadata, using the post's path as the key. */
 async function fetchPostMetadata() {
   const proxyUrl = '/api';
   const controllerId = '1pfGF8yBu3D0GPTezygLuzu3Cif8SkjhtG98nL-czlhc';
   const range = 'B3:I';
   const url = `${proxyUrl}?https://sheets.googleapis.com/v4/spreadsheets/${controllerId}/values/${range}`;
+  const googleSheet = await fetch(url).then(r => r.json());
 
-  await fetch(url)
-    .then(r => r.json())
-    .then(googleSheet => {
-      posts.clear();
-      for (const article of googleSheet.values) {
-        posts.set(article[4], {
-          title: article[0],
-          description: article[1],
-          id: article[2],
-          linkText: article[3],
-          createdDate: article[5],
-          updatedDate: article[6],
-          tags: article[7]
-        });
-      }
+  const metadata = new Map();
+  for (const row of googleSheet.values) {
+    metadata.set(row[4], {
+      title: row[0],
+      description: row[1],
+      id: row[2],
+      linkText: row[3],
+      createdDate: row[5],
+      updatedDate: row[6],
+      tags: row[7]
     });
+  }
+
+  return metadata;
 }
 
-/* Get content for the given path */
-async function fetchPostContent(path) {
-  const post = posts.get(path);
+/* Constructs the <main> element used on the homepage from the CMS metadata Map object. */
+function buildHomeComponent(metadata) {
+  const home = document.createElement('main');
+  home.classList.add('card-container');
+
+  for (const [path, post] of metadata) {
+    home.insertAdjacentHTML('beforeend',
+      `<article class="card">
+        <h2>${post.title}</h2><p>${post.description}</p><p><a href="${path}">${post.linkText}</a></p>
+      </article>`);
+  }
+
+  // Sets grid-row-end for each card when the homepage is resized. Required to implement masonry layout.
+  new ResizeObserver(_ => {
+    const halfRemHeight = parseFloat(getComputedStyle(document.documentElement).fontSize) / 2;
+    for (let card of home.children) {
+      let contentHeight = 0;
+      for (let child of card.children) {
+        contentHeight += child.clientHeight;
+      }
+      card.style.gridRowEnd = `span ${Math.ceil(contentHeight / halfRemHeight)}`;
+    }
+  }).observe(home);
+
+  return home;
+}
+
+/* Calls the Google Docs API to get content for a given Doc ID. Stringifies the Google Doc and converts it to
+  markdown, which is then ready to be converted into an HTML component. */
+async function fetchPostContent(id) {
   const proxyUrl = '/api';
-  const url = `${proxyUrl}?https://docs.googleapis.com/v1/documents/${post.id}`;
+  const url = `${proxyUrl}?https://docs.googleapis.com/v1/documents/${id}`;
+  const googleDoc = await fetch(url).then(r => r.json());
 
   const mapping = {
     TITLE: '# ',
@@ -93,75 +87,88 @@ async function fetchPostContent(path) {
     NORMAL_TEXT: '',
   };
 
-  await fetch(url)
-    .then(r => r.json())
-    .then(googleDoc => {
-      let articleContent = '';
-      for (const content of googleDoc.body.content) {
-        const tag = mapping[content?.paragraph?.paragraphStyle?.namedStyleType];
-        const bullet = content?.paragraph?.bullet ? '- ' : '';
-        if (tag !== undefined) {
-          articleContent += `${bullet}${tag}${content.paragraph.elements[0].textRun.content}`;
-        }
-      }
-      post.content = articleContent;
-    });
+  let articleContent = '';
+  for (const content of googleDoc.body.content) {
+    const tag = mapping[content?.paragraph?.paragraphStyle?.namedStyleType];
+    const bullet = content?.paragraph?.bullet ? '- ' : '';
+    if (tag !== undefined) {
+      articleContent += `${bullet}${tag}${content.paragraph.elements[0].textRun.content}`;
+    }
+  }
+
+  return articleContent;
 }
 
-/* Client-side routing */
+/* Constructs the <main> element used on a post from the post's content. */
+function buildPostComponent(articleContent) {
+  const post = document.createElement('main');
+
+  post.insertAdjacentHTML('beforeend',
+    `<article class="post">
+    ${marked(articleContent)}
+  </article>`);
+
+  return post;
+}
+
+/* Update document title, <head> tags, and the edit pencil icon for a page. */
+function setPageMetadata(values) {
+  document.title = values.title;
+  document.querySelector('meta[name="description"]').content = values.description;
+  document.querySelector('link[rel="canonical"]').href = `https://ardislu.dev${values.path}`;
+  document.querySelector('meta[property="og:title"]').content = values.title;
+  document.querySelector('meta[property="og:description"]').content = values.description;
+  document.querySelector('meta[property="og:url"]').content = `https://ardislu.dev${values.path}`;
+  globalThis.components.get('header').querySelector('#edit').href = values.editUrl;
+}
+
+/* Implement client-side routing. Handles view logic for /home and /:post routes. */
 async function showPage(path) {
   // Determine which placeholders to show
   if (path === '/home' || path === '/') {
-    document.querySelector('main').replaceWith(homeLoader);
+    document.querySelector('main').replaceWith(globalThis.components.get('cards-skeleton'));
   }
   else {
-    document.querySelector('main').replaceWith(postLoader);
+    document.querySelector('main').replaceWith(globalThis.components.get('article-skeleton'));
   }
 
   // Load all post metadata if it hasn't been loaded yet
-  if (posts.size === 0) {
-    await fetchPostMetadata();
+  if (globalThis.metadata.size === 0) {
+    globalThis.metadata = await fetchPostMetadata();
   }
 
   if (path === '/home' || path === '/') {
-    document.title = 'ardislu.dev';
-    head.description.content = 'Notes on web development, crypto, self-hosting, and tech in general.';
-    head.canonical.href = 'https://ardislu.dev';
-    head.ogTitle.content = 'ardislu.dev';
-    head.ogDescription.content = 'Notes on web development, crypto, self-hosting, and tech in general.';
-    head.ogUrl.content = 'https://ardislu.dev';
-    header.querySelector('#edit').href = `https://docs.google.com/spreadsheets/d/1pfGF8yBu3D0GPTezygLuzu3Cif8SkjhtG98nL-czlhc/edit`;
-    homeMain.innerHTML = '';
-    for (const [path, post] of posts) {
-      homeMain.insertAdjacentHTML('beforeend',
-        `<article class="card">
-          <h2>${post.title}</h2><p>${post.description}</p><p><a href="${path}">${post.linkText}</a></p>
-        </article>`);
-    }
-    document.querySelector('main').replaceWith(homeMain);
+    setPageMetadata({
+      title: 'ardislu.dev',
+      description: 'Notes on web development, crypto, self-hosting, and tech in general.',
+      path: path,
+      editUrl: 'https://docs.google.com/spreadsheets/d/1pfGF8yBu3D0GPTezygLuzu3Cif8SkjhtG98nL-czlhc/edit'
+    });
+
+    const homeComponent = buildHomeComponent(globalThis.metadata);
+    globalThis.components.set('home', homeComponent);
+    document.querySelector('main').replaceWith(homeComponent);
   }
-  else if (posts.has(path)) {
-    const post = posts.get(path);
+  else if (globalThis.metadata.has(path)) {
+    const post = globalThis.metadata.get(path);
 
-    document.title = post.title;
-    head.description.content = post.description;
-    head.canonical.href = `https://ardislu.dev${path}`;
-    head.ogTitle.content = post.title;
-    head.ogDescription.content = post.description;
-    head.ogUrl.content = `https://ardislu.dev${path}`;
-    header.querySelector('#edit').href = `https://docs.google.com/document/d/${post.id}/edit`;
+    setPageMetadata({
+      title: post.title,
+      description: post.description,
+      path: path,
+      editUrl: `https://docs.google.com/document/d/${post.id}/edit`
+    });
 
-    if (post.content === undefined) {
-      await fetchPostContent(path);
+    if (!globalThis.components.has(path)) {
+      const articleContent = await fetchPostContent(post.id);
+      const postComponent = buildPostComponent(articleContent);
+      globalThis.components.set(path, postComponent);
+      document.querySelector('main').replaceWith(postComponent);
+      hljs.highlightAll(); // Should only be called once per page component
     }
-
-    postMain.innerHTML = '';
-    postMain.insertAdjacentHTML('beforeend',
-      `<article class="post">
-        ${marked(post.content)}
-      </article>`);
-    document.querySelector('main').replaceWith(postMain);
-    hljs.highlightAll();
+    else {
+      document.querySelector('main').replaceWith(globalThis.components.get(path));
+    }
   }
   else {
     // MUST redirect to a page where the web server serves an actual 404 error (i.e. not just 
@@ -171,6 +178,7 @@ async function showPage(path) {
   }
 }
 
+/* Implement client-side routing. Handles redirect logic. */
 function route(href) {
   const url = new URL(href);
 
@@ -190,7 +198,7 @@ function route(href) {
   }
 }
 
-/* Set event handlers for client-side routing */
+/* Set event handlers for client-side routing. */
 globalThis.addEventListener('popstate', _ => showPage(location.pathname));
 document.addEventListener('click', e => {
   e.preventDefault();
@@ -201,23 +209,8 @@ document.addEventListener('click', e => {
   route(anchor.href);
 });
 
-// Show the current URL (to support direct linking aka deep links)
-showPage(location.pathname);
-
-/* Set grid-row-end for each card on homeMain resize. Required to implement masonry layout. */
-new ResizeObserver(_ => {
-  const halfRemHeight = parseFloat(getComputedStyle(document.documentElement).fontSize) / 2;
-  for (let card of homeMain.children) {
-    let contentHeight = 0;
-    for (let child of card.children) {
-      contentHeight += child.clientHeight;
-    }
-    card.style.gridRowEnd = `span ${Math.ceil(contentHeight / halfRemHeight)}`;
-  }
-}).observe(homeMain);
-
-/* DevTools console help message */
-const ascii = 
+/* DevTools console help message. */
+const ascii =
 `                   _       _            _                 
                    | (_)   | |          | |                
        ____ ____ __| |_ ___| |_   _   __| | _____  __      
@@ -230,10 +223,32 @@ Poking around? Here are some globals that might be helpful:`;
 function help() {
   console.log(`%c ${ascii}`, 'font-weight: bold')
   console.table({
-    'POSTS': 'Map object containing all blog post metadata and content.',
-    'COMPONENTS': 'Map object containing live HTML elements of all the components used for the site.',
-    'help()': 'Print this message.'
+    'help()': 'Print this message.',
+    'metadata': 'Map object containing all blog post metadata and content.',
+    'components': 'Map object containing live HTML elements of all the components used for the site.'
   });
 }
-help();
 globalThis.help = help;
+
+/* Capture the existing <header> and <dialog> elements from the HTML. */
+globalThis.components.set('header', document.querySelector('header'));
+globalThis.components.set('toast', document.querySelector('dialog'));
+
+/* Create the skeleton loaders. */
+const cardsSkeleton = document.createElement('main');
+cardsSkeleton.classList.add('card-container');
+cardsSkeleton.insertAdjacentHTML('beforeend',
+  `<article class="card">
+    ${'<div class="skeleton-line"></div>'.repeat(5)}
+  </article>`.repeat(30));
+globalThis.components.set('cards-skeleton', cardsSkeleton);
+
+const articleSkeleton = document.createElement('main');
+articleSkeleton.insertAdjacentHTML('beforeend',
+  `<article class="post">
+    ${'<div class="skeleton-line"></div>'.repeat(25)}
+  </article>`);
+globalThis.components.set('article-skeleton', articleSkeleton);
+
+help();
+showPage(location.pathname); // To support direct links to articles
