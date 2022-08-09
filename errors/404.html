@@ -10,9 +10,12 @@
   <link rel="icon" href="/logo.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/logo_maskable.png">
   <link rel="manifest" href="/manifest.webmanifest">
-  <link rel="stylesheet" href="/style.css">
-  <link rel="stylesheet" href="/print.css" media="print">
   <style>
+    @layer base, print;
+
+    @import "/style.css" layer(base);
+    @import "/print.css" layer(print) print;
+
     main {
       display: flex;
       flex-direction: column;
