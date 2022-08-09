@@ -41,7 +41,7 @@ a {
 }
 
 a:hover, a:focus {
-  background-color: hsl(30deg 80% 90%);
+  background: hsl(30deg 80% 90%);
   border-radius: 0.25rem;
   text-decoration-color: currentColor;
 }
@@ -141,5 +141,5 @@ dialog > button {
 }
 
 dialog > button:hover, dialog > button:focus {
-  background-color: hsl(216deg 100% 70%);
+  background: hsl(216deg 100% 70%);
 }
