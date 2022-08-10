@@ -10,7 +10,7 @@ const cacheChannel = new BroadcastChannel('cache');
 cacheChannel.addEventListener('message', e => {
   // Ignore static assets like logo.svg, style.css, script.js, etc. 
   if (new URL(e.data.resource).pathname === '/api' && e.data.isUpdated) {
-    toast.show();
+    globalThis.components.get('toast').show();
   }
 });
 document.querySelector('dialog > button').addEventListener('click', _ => location.reload());
