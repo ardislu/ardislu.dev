@@ -119,7 +119,7 @@ function setPageMetadata(values) {
   document.querySelector('meta[property="og:title"]').content = values.title;
   document.querySelector('meta[property="og:description"]').content = values.description;
   document.querySelector('meta[property="og:url"]').content = `https://ardislu.dev${values.path}`;
-  globalThis.components.get('header').querySelector('#edit').href = values.editUrl;
+  document.querySelector('#edit').href = values.editUrl;
 }
 
 /* Implement client-side routing. Handles view logic for /home and /:post routes. */
