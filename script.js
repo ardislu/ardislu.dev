@@ -13,7 +13,7 @@ cacheChannel.addEventListener('message', e => {
     globalThis.components.get('toast').show();
   }
 });
-document.querySelector('dialog > button').addEventListener('click', _ => location.reload());
+document.querySelector('#refresh').addEventListener('click', _ => location.reload());
 
 /* Global store for homepage metadata and HTML components. */
 globalThis.metadata = new Map();
