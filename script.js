@@ -201,12 +201,11 @@ function route(href) {
 /* Set event handlers for client-side routing. */
 globalThis.addEventListener('popstate', _ => showPage(location.pathname));
 document.addEventListener('click', e => {
-  e.preventDefault();
   const anchor = e.target.closest('a');
-  if (!anchor) {
-    return;
+  if (anchor) {
+    e.preventDefault();
+    route(anchor.href);
   }
-  route(anchor.href);
 });
 
 /* DevTools console help message. */
