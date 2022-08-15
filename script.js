@@ -30,6 +30,7 @@ async function fetchPostMetadata() {
   const googleSheet = await fetch(url).then(r => r.json());
 
   const metadata = new Map();
+  googleSheet.values.reverse(); // Put newest articles first
   for (const row of googleSheet.values) {
     metadata.set(row[4], {
       title: row[0],
