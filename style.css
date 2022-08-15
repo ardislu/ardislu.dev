@@ -14,6 +14,7 @@ header {
   align-items: center;
   justify-content: space-between;
   inline-size: min(100% - 2rem, 1440px);
+  padding-block: 1rem;
   margin-inline: auto;
   margin-block-end: 1rem;
   border-block-end: 1px hsl(216deg 100% 80%) solid;
@@ -27,12 +28,18 @@ a > svg {
   vertical-align: middle;
 }
 
+form > button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
 h1 {
   font-size: 2.25em;
   margin-block: 0.5em;
 }
 
-a {
+a, form > button {
   color: hsl(216deg 100% 45%);
   font-weight: bold;
   text-decoration-color: transparent;
@@ -40,7 +47,7 @@ a {
   transition: 0.15s;
 }
 
-a:hover, a:focus {
+a:hover, a:focus, form > button:hover, form > button:focus {
   background: hsl(30deg 80% 90%);
   border-radius: 0.25rem;
   text-decoration-color: currentColor;

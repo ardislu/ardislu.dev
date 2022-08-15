@@ -1,3 +1,4 @@
+import FlexDocument from 'https://cdn.jsdelivr.net/gh/nextapps-de/flexsearch@0.7.2/dist/module/document.min.js';
 import { marked } from 'https://cdn.jsdelivr.net/npm/marked@4.0.18/lib/marked.esm.min.js';
 import hljs from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.6.0/build/es/highlight.min.js';
 import powershell from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.6.0/build/es/languages/powershell.min.js';
@@ -122,6 +123,69 @@ function setPageMetadata(values) {
   document.querySelector('#edit').href = values.editUrl;
 }
 
+/* Create the flexsearch index for searching. */
+function buildFlexIndex(metadata) {
+  const index = new FlexDocument({
+    index: ['title', 'description', 'tags', 'path'],
+    store: ['path'],
+    tokenize: 'full'
+  });
+
+  for (const [path, post] of metadata) {
+    index.add({
+      path: path,
+      ...post
+    });
+  }
+
+  return index;
+}
+
+/* Wrapper to search the flexsearch index and return a filtered metadata map. */
+function search(str) {
+  const index = globalThis.flexIndex;
+  const search = index.search(str, { enrich: true });
+  const paths = new Set(search.map(j => j.result.map(k => k.doc.path)).flat());
+  const filteredMetadata = new Map();
+  for (const path of paths) {
+    filteredMetadata.set(path, globalThis.metadata.get(path));
+  }
+  return filteredMetadata;
+}
+globalThis.search = search;
+
+/* On search submit, replace <main> with the search results. */
+document.querySelector('form').addEventListener('submit', async event => {
+  event.preventDefault();
+
+  const data = new FormData(event.target);
+  const query = data.get('query')
+  if (query === '') {
+    document.querySelector('main').replaceWith(globalThis.components.get('home'));
+    return;
+  }
+
+  const filteredMetadata = search(query);
+  const filteredHome = buildHomeComponent(filteredMetadata);
+
+  // TODO: update the query params to support deeplinks
+  // TODO: logic to handle searching while in an article
+  document.querySelector('main').replaceWith(filteredHome);
+});
+
+/* Focus the search input on '/' or Ctrl + k. */
+document.addEventListener('keydown', event => {
+  const search = document.querySelector('input');
+  const ctrlOrMetaPressed = event.ctrlKey || event.metaKey;
+  const isSlash = event.key === '/' && !ctrlOrMetaPressed;
+  const isCtrlK = event.key === 'k' && ctrlOrMetaPressed;
+  const isTextField = ['TEXTAREA', 'INPUT'].includes(event.target.tagName);
+  if ((isSlash || isCtrlK) && !isTextField && document.activeElement !== search) {
+    event.preventDefault();
+    search.focus();
+  }
+});
+
 /* Implement client-side routing. Handles view logic for /home and /:post routes. */
 async function showPage(path) {
   // Determine which placeholders to show
@@ -135,6 +199,7 @@ async function showPage(path) {
   // Load all post metadata if it hasn't been loaded yet
   if (globalThis.metadata.size === 0) {
     globalThis.metadata = await fetchPostMetadata();
+    globalThis.flexIndex = buildFlexIndex(globalThis.metadata);
   }
 
   if (path === '/home' || path === '/') {
@@ -223,6 +288,7 @@ function help() {
   console.log(`%c ${ascii}`, 'font-weight: bold')
   console.table({
     'help()': 'Print this message.',
+    'search(str)': 'Search the metadata.',
     'metadata': 'Map object containing all blog post metadata and content.',
     'components': 'Map object containing live HTML elements of all the components used for the site.'
   });
