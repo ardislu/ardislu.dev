@@ -31,6 +31,7 @@ export async function onRequestGet({ env }) {
     <name>Ardis Lu</name>
   </author>
   <link href="https://ardislu.dev/"/>
+  <link rel="self" href="https://ardislu.dev/atom.xml"/>
   <updated>${new Date(Math.max(...updatedDates)).toISOString()}</updated>
 
   ${entries.join('\n  ')}
