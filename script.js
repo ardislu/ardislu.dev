@@ -201,6 +201,7 @@ async function showPage(path) {
   if (globalThis.metadata.size === 0) {
     globalThis.metadata = await fetchPostMetadata();
     globalThis.flexIndex = buildFlexIndex(globalThis.metadata);
+    globalThis.components.set('home', buildHomeComponent(globalThis.metadata));
   }
 
   if (path === '/home' || path === '/') {
@@ -211,9 +212,7 @@ async function showPage(path) {
       editUrl: 'https://docs.google.com/spreadsheets/d/1pfGF8yBu3D0GPTezygLuzu3Cif8SkjhtG98nL-czlhc/edit'
     });
 
-    const homeComponent = buildHomeComponent(globalThis.metadata);
-    globalThis.components.set('home', homeComponent);
-    document.querySelector('main').replaceWith(homeComponent);
+    document.querySelector('main').replaceWith(globalThis.components.get('home'));
   }
   else if (globalThis.metadata.has(path)) {
     const post = globalThis.metadata.get(path);
