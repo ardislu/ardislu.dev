@@ -12,7 +12,7 @@ export async function onRequestGet({ env }) {
         entries.push(`<entry>
     <id>urn:google.com:${article[2]}</id>
     <title>${article[0]}</title>
-    <summary>${article[1]}</summary>
+    <summary type="html"><![CDATA[<p>${article[1]}</p><a href="https://ardislu.dev${article[4]}">${article[3]}</a>]]></summary>
     <link href="https://ardislu.dev${article[4]}"/>
     <published>${new Date(article[5]).toISOString()}</published>
     <updated>${new Date(article[6]).toISOString()}</updated>
