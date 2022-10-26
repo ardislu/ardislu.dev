@@ -49,13 +49,14 @@ a, form > button {
   font-weight: bold;
   text-decoration-color: transparent;
   text-underline-offset: 0.1em;
-  transition: 0.15s;
+  transition: 500ms;
 }
 
 a:hover, a:focus, form > button:hover, form > button:focus {
   background: hsl(30deg 80% 90%);
   border-radius: 0.25rem;
   text-decoration-color: currentColor;
+  transition: 150ms;
 }
 
 kbd {
