@@ -266,6 +266,10 @@ function route(href) {
 /* Set event handlers for client-side routing. */
 globalThis.addEventListener('popstate', _ => showPage(location.pathname));
 document.addEventListener('click', e => {
+  if (e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) {
+    return; // Use default behavior if any keyboard modifier is applied to the click
+  }
+
   const anchor = e.target.closest('a');
   if (anchor) {
     e.preventDefault();
