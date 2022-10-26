@@ -107,10 +107,49 @@ kbd {
     0px 4.3px 4.8px -1.2px hsl(0deg 0% 69% / 0.17),
     0px 8.4px 9.5px -1.9px hsl(0deg 0% 69% / 0.17),
     0.1px 16px 18px -2.5px hsl(0deg 0% 69% / 0.17);
+  background: hsl(0deg 0% 90%);
+  transition: border-color 700ms, background-color 700ms;
+  position: relative;
 }
 
 .card > * {
   margin: 0; /* Margins for children elements are already handled by gap in .card */
+  background: inherit;
+}
+
+.card:hover, .card:focus-within {
+  border: solid hsl(216deg 20% 55% / 0.1);
+  background: hsl(216deg 20% 90%);
+  transition: border-color 250ms, background-color 250ms;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: -6px;
+  left: -6px;
+  width: calc(100% + 12px);
+  height: calc(100% + 12px);
+  border-radius: 18px;
+  --shade: 50% 70%;
+  background: conic-gradient(hsl(360deg var(--shade)),
+      hsl(315deg var(--shade)),
+      hsl(270deg var(--shade)),
+      hsl(225deg var(--shade)),
+      hsl(180deg var(--shade)),
+      hsl(135deg var(--shade)),
+      hsl(90deg var(--shade)),
+      hsl(45deg var(--shade)),
+      hsl(0deg var(--shade)));
+  opacity: 0;
+  transition: opacity 600ms;
+}
+
+.card:hover::before,
+.card:focus-within::before {
+  opacity: 1;
+  transition: opacity 400ms;
 }
 
 .post {
