@@ -24,6 +24,11 @@ header * {
   display: inline-flex;
 }
 
+input {
+  font-size: 16px;
+  padding: 4px;
+}
+
 a > svg {
   vertical-align: middle;
 }
