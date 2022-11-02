@@ -71,6 +71,12 @@ kbd {
   margin-inline: 0.2em;
 }
 
+code:not(.hljs) {
+  background: hsl(0deg 0% 95%);
+  border-radius: 3px;
+  padding: 1px 3px 2px;
+}
+
 .card-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(360px, 100%), 1fr));
