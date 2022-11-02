@@ -17,7 +17,27 @@ header {
   padding-block: 1rem;
   margin-inline: auto;
   margin-block-end: 1rem;
-  border-block-end: 1px hsl(216deg 100% 80%) solid;
+  position: relative;
+}
+
+header::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 5%;
+  inline-size: 90%;
+  block-size: 2px;
+  --shade: 50% 70%;
+  background: linear-gradient(90deg,
+      hsl(360deg var(--shade)),
+      hsl(315deg var(--shade)),
+      hsl(270deg var(--shade)),
+      hsl(225deg var(--shade)),
+      hsl(180deg var(--shade)),
+      hsl(135deg var(--shade)),
+      hsl(90deg var(--shade)),
+      hsl(45deg var(--shade)),
+      hsl(0deg var(--shade)));
 }
 
 header * {
