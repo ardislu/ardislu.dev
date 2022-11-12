@@ -53,6 +53,16 @@ a > svg {
   vertical-align: middle;
 }
 
+a:has(#pencil, #github) {
+  display: none;
+}
+
+@media (min-width: 34.375rem) {
+  a:has(#pencil, #github) {
+    display: initial;
+  }
+}
+
 form > button {
   background: transparent;
   border: none;
