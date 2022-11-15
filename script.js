@@ -157,12 +157,7 @@ function search(str) {
 }
 globalThis.search = search;
 
-/* On search submit, replace <main> with the search results. */
-document.querySelector('form').addEventListener('submit', async event => {
-  event.preventDefault();
-
-  const data = new FormData(event.target);
-  const query = data.get('query')
+function showSearch(query) {
   if (query === '') {
     document.querySelector('main').replaceWith(globalThis.components.get('home'));
     return;
@@ -174,6 +169,18 @@ document.querySelector('form').addEventListener('submit', async event => {
   // TODO: update the query params to support deeplinks
   // TODO: logic to handle searching while in an article
   document.querySelector('main').replaceWith(filteredHome);
+}
+
+/* On search submit, replace <main> with the search results. */
+document.querySelector('form').addEventListener('submit', async event => {
+  event.preventDefault();
+
+  const data = new FormData(event.target);
+  const query = data.get('query');
+
+  // showPage flow is used for direct link. Manually set history here.
+  history.pushState({}, '', `/search?q=${query}`);
+  showSearch(query);
 });
 
 /* Focus the search input on '/' or Ctrl + k. */
@@ -215,6 +222,13 @@ async function showPage(path) {
     });
 
     document.querySelector('main').replaceWith(globalThis.components.get('home'));
+  }
+  else if (path === '/search') {
+    const form = document.querySelector('form');
+    const params = new URLSearchParams(location.search);
+    const query = params.get('q');
+    form.elements['query'].value = query;
+    showSearch(query); // Bypass form submission because it will set the history twice on direct link
   }
   else if (globalThis.metadata.has(path)) {
     const post = globalThis.metadata.get(path);
