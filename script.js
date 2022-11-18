@@ -177,7 +177,9 @@ document.querySelector('form').addEventListener('submit', async event => {
   const query = data.get('query');
 
   // showPage flow is used for direct link. Manually set history here.
-  history.pushState({}, '', `/search?q=${query}`);
+  if (location.search !== `?q=${query}`) { // Don't update history if the query hasn't changed
+    history.pushState({}, '', `/search?q=${query}`);
+  }
   showSearch(query);
 });
 
