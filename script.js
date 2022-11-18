@@ -166,8 +166,6 @@ function showSearch(query) {
   const filteredMetadata = search(query);
   const filteredHome = buildHomeComponent(filteredMetadata);
 
-  // TODO: update the query params to support deeplinks
-  // TODO: logic to handle searching while in an article
   document.querySelector('main').replaceWith(filteredHome);
 }
 
