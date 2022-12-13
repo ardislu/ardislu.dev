@@ -1,9 +1,13 @@
+html, body {
+  min-block-size: 100%;
+}
+
 body {
   font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto,
     "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", Helvetica, Arial,
     sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   color: hsl(0deg 0% 15%);
-  background: hsl(0deg 0% 90%);
+  background: radial-gradient(circle at top, hsl(216deg 10% 95%), hsl(216deg 15% 90%) 40%);
   margin: 0;
   overflow-wrap: break-word;
   hyphens: auto;
