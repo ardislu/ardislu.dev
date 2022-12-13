@@ -94,6 +94,10 @@ header a:has(#feed, #pencil, #github) {
   }
 }
 
+main {
+  min-inline-size: 0;
+}
+
 form > button {
   background: transparent;
   border: none;
