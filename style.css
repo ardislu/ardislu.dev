@@ -9,21 +9,29 @@ body {
   hyphens: auto;
 }
 
-header {
+header, footer {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   inline-size: min(100% - 2rem, 1440px);
   padding-block: 1rem;
   margin-inline: auto;
-  margin-block-end: 1rem;
   position: relative;
 }
 
-header::after {
+header {
+  justify-content: space-between;
+  margin-block-end: 1rem;
+}
+
+footer {
+  flex-direction: column;
+  gap: 8px;
+  margin-block-start: 1rem;
+}
+
+header::after, footer::before {
   content: "";
   position: absolute;
-  bottom: -4px;
   left: 5%;
   inline-size: 90%;
   block-size: 2px;
@@ -40,6 +48,14 @@ header::after {
       hsl(0deg var(--shade)));
 }
 
+header::after {
+  bottom: -4px;
+}
+
+footer::before {
+  top: 4px;
+}
+
 header * {
   display: inline-flex;
 }
@@ -53,13 +69,25 @@ a > svg {
   vertical-align: middle;
 }
 
-a:has(#feed, #pencil, #github) {
+header a:has(#feed, #pencil, #github) {
   display: none;
 }
 
 @media (min-width: 34.375rem) {
-  a:has(#feed, #pencil, #github) {
+  header a:has(#feed, #pencil, #github) {
     display: initial;
+  }
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+@media (min-width: 34.375rem) {
+  .footer-links {
+    display: none;
   }
 }
 
