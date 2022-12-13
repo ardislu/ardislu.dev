@@ -1,4 +1,6 @@
 body {
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
   min-block-size: 100dvh;
   font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto,
     "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", Helvetica, Arial,
