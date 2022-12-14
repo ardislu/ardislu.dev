@@ -73,12 +73,12 @@ a > svg {
   vertical-align: middle;
 }
 
-header a:has(#feed, #pencil, #github) {
+header > nav {
   display: none;
 }
 
 @media (min-width: 34.375rem) {
-  header a:has(#feed, #pencil, #github) {
+  header > nav {
     display: initial;
   }
 }
