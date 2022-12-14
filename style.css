@@ -72,6 +72,11 @@ input {
   border: 1px solid hsl(216deg 30% 80%);
 }
 
+/* Hide magnifying glass on Safari */
+input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
 a > svg {
   vertical-align: middle;
 }
