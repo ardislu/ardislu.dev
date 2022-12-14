@@ -65,8 +65,11 @@ header * {
 }
 
 input {
+  min-block-size: 20px;
   font-size: 16px;
   padding: 4px;
+  background: hsl(0deg 100% 100%);
+  border: 1px solid hsl(216deg 30% 80%);
 }
 
 a > svg {
@@ -103,6 +106,7 @@ form > button {
   background: transparent;
   border: none;
   cursor: pointer;
+  padding: 0;
 }
 
 h1 {
