@@ -61,6 +61,7 @@ footer::before {
 
 header * {
   display: inline-flex;
+  align-items: center;
 }
 
 input {
