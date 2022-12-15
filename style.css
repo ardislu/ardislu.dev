@@ -273,16 +273,18 @@ dialog {
     0.1px 16px 18px -2.5px hsl(50deg 72% 69% / 0.17);
 }
 
-dialog * {
-  display: inline;
+dialog div {
+  display: flex;
+  gap: 4px;
+  align-items: center;
 }
 
-dialog > button {
+dialog div > button {
   cursor: pointer;
   text-transform: uppercase;
   font-weight: bold;
   background: hsl(216deg 100% 80%);
-  padding: 0.25rem;
+  padding: 0.75rem;
   border: 1px hsl(216deg 100% 70%) solid;
   border-radius: 0.5rem;
   transition: 0.15s;
