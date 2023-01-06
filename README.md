@@ -1,6 +1,6 @@
 # ardislu.dev
 
-This is the frontend for [my personal blog](https://ardislu.dev).
+This repo contains both the frontend and the backend for [my personal blog](https://ardislu.dev).
 
 Also check out my [main website](https://ardis.lu)!
 
@@ -14,7 +14,7 @@ Once I fetch an article from the Google Docs API, the article is converted into 
 
 ## Local development
 
-Use the `wrangler` CLI to serve the static frontend and API at the same time.
+Use the `wrangler` CLI to serve the static frontend and the [Cloudflare Workers](https://workers.cloudflare.com/) backend API at the same time.
 
 1. Copy `.dev.vars.example` and rename it to `.dev.vars`. Provide an email and private key for a service account with access to the Google Docs and Google Sheet.
 
