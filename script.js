@@ -305,7 +305,7 @@ const ascii =
 Poking around? Here are some globals that might be helpful:`;
 
 function help() {
-  console.log(`%c ${ascii}`, 'font-weight: bold')
+  console.log(`%c ${ascii}`, 'font-weight: bold');
   console.table({
     'help()': 'Print this message.',
     'search(str)': 'Search the metadata.',
