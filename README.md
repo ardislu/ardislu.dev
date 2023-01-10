@@ -1,6 +1,6 @@
 # ardislu.dev
 
-This repo contains both the frontend and the backend for [my personal blog](https://ardislu.dev).
+This repo contains both the frontend and the backend for [my personal blog](https://ardislu.dev): a blog about web development, crypto, self-hosting, and tech in general.
 
 Also check out my [main website](https://ardis.lu)!
 
