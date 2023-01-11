@@ -260,11 +260,12 @@ code:not(.hljs) {
 
 dialog {
   position: fixed;
-  inset-block-end: 1rem;
+  inset-block-end: 8px;
+  inset-inline: 8px;
   background: hsl(50deg 72% 80%);
-  padding: 1rem;
+  padding: 8px;
   border: solid hsl(50deg 72% 55% / 0.1);
-  border-radius: 1rem;
+  border-radius: 12px;
   box-shadow:
     0px 1px 1.1px hsl(50deg 72% 69% / 0.17),
     0px 2.3px 2.6px -0.6px hsl(50deg 72% 69% / 0.17),
@@ -275,7 +276,7 @@ dialog {
 
 dialog div {
   display: flex;
-  gap: 4px;
+  gap: 8px;
   align-items: center;
 }
 
@@ -284,12 +285,12 @@ dialog div > button {
   text-transform: uppercase;
   font-weight: bold;
   background: hsl(216deg 100% 80%);
-  padding: 0.75rem;
+  padding: 8px;
   border: 1px hsl(216deg 100% 70%) solid;
-  border-radius: 0.5rem;
+  border-radius: 12px;
   transition: 0.15s;
 }
 
-dialog > button:hover, dialog > button:focus {
-  background: hsl(216deg 100% 70%);
+dialog div > button:hover, dialog div > button:focus-within {
+  filter: brightness(110%);
 }
