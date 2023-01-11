@@ -11,8 +11,14 @@ hljs.registerLanguage('solidity', solidity);
 navigator.serviceWorker?.register('/sw.js'); // serviceWorker is disabled on Firefox Private Browsing
 const cacheChannel = new BroadcastChannel('cache');
 cacheChannel.addEventListener('message', e => {
-  // Ignore static assets like logo.svg, style.css, script.js, etc. 
-  if (new URL(e.data.resource).pathname === '/api' && e.data.isUpdated) {
+  const resourceUrl = new URL(e.data.resource);
+  const isApiRequest = resourceUrl.pathname === '/api';
+  const isCurrentPage = resourceUrl.search.split('/').pop() === metadata.get(window.location.pathname).id;
+  // Only show toast if:
+  // - Non-static asset (static assets logo.svg, style.css, script.js, etc. are not managed by service worker)
+  // - The relevant page is open (if the user has multiple tabs open, do not show the toast on unrelated pages)
+  // - Data was changed
+  if (isApiRequest && isCurrentPage && e.data.isUpdated) {
     globalThis.components.get('toast').show();
   }
 });
