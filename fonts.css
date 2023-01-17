@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter&family=Raleway&display=swap');
+
+/* Manually import extended Source Code Pro because Google Fonts does not specify the full Unicode range even 
+  though it's supported by the font (specifically, box-drawing characters are not specified by Google Fonts). */
+@font-face {
+  font-family: "Source Code Pro";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("/Source_Code_Pro_Extended.woff2") format("woff2");
+}
+
+:root {
+  font-family: "Inter", -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", Helvetica, Arial,
+    sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Raleway";
+}
+
+code, kbd {
+  font-family: "Source Code Pro", Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace;
+}

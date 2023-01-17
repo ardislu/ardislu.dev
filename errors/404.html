@@ -19,8 +19,9 @@
   <link rel="apple-touch-icon" href="/logo_maskable.png">
   <link rel="manifest" href="/manifest.webmanifest">
   <style>
-    @layer base, print;
+    @layer fonts, base, print;
 
+    @import "/fonts.css" layer(fonts);
     @import "/style.css" layer(base);
     @import "/print.css" layer(print) print;
 

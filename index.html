@@ -18,8 +18,9 @@
   <link rel="apple-touch-icon" href="/logo_maskable.png">
   <link rel="manifest" href="/manifest.webmanifest">
   <style>
-    @layer base, print, hljs;
+    @layer fonts, base, print, hljs;
 
+    @import "/fonts.css" layer(fonts);
     @import "/style.css" layer(base);
     @import "/print.css" layer(print) print;
     @import "https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.7.0/build/styles/default.min.css" layer(hljs);
