@@ -9,7 +9,7 @@ export async function onRequestGet({ request, env }) {
     return new Response('Invalid query URL. Query URL hostname must be "sheets.googleapis.com" or "docs.googleapis.com".', { status: 400 });
   }
 
-  const token = await getGoogleAuthToken(env.EMAIL, env.PRIVATE_KEY, env.SCOPES);
+  const token = await getGoogleAuthToken(env.EMAIL, env.PRIVATE_KEY, 'https://www.googleapis.com/auth/spreadsheets.readonly https://www.googleapis.com/auth/documents.readonly');
 
   return fetch(queryUrl, { headers: { Authorization: `Bearer ${token}` } });
 }
