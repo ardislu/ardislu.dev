@@ -3,7 +3,7 @@ import { getGoogleAuthToken } from './auth.js';
 export async function onRequestGet({ env }) {
   const entries = [];
   const updatedDates = [];
-  const token = await getGoogleAuthToken(env.EMAIL, env.PRIVATE_KEY, env.SCOPES);
+  const token = await getGoogleAuthToken(env.EMAIL, env.PRIVATE_KEY, 'https://www.googleapis.com/auth/spreadsheets.readonly https://www.googleapis.com/auth/documents.readonly');
   const sheetUrl = 'https://sheets.googleapis.com/v4/spreadsheets/1pfGF8yBu3D0GPTezygLuzu3Cif8SkjhtG98nL-czlhc/values/B3:I';
   await fetch(sheetUrl, { headers: { Authorization: `Bearer ${token}` } })
     .then(r => r.json())
