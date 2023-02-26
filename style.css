@@ -264,6 +264,13 @@ code:not(.hljs) {
   transition: opacity 400ms;
 }
 
+.subtitle {
+  margin-block: -8px;
+  font-size: 0.875em;
+  font-weight: 300;
+  color: hsl(216deg 20% 40%);
+}
+
 .tags {
   display: flex;
   flex-wrap: wrap;
