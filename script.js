@@ -47,7 +47,7 @@ async function fetchPostMetadata() {
       linkText: row[3],
       createdDate: row[5],
       updatedDate: row[6],
-      tags: row[7]
+      tags: row[7].split(',').map(s => s.trim())
     });
   }
 
@@ -62,7 +62,10 @@ function buildHomeComponent(metadata) {
   for (const [path, post] of metadata) {
     home.insertAdjacentHTML('beforeend',
       `<article class="card">
-        <h2>${post.title}</h2><p>${post.description}</p><p><a href="${path}">${post.linkText}</a></p>
+        <h2>${post.title}</h2>
+        <ul class="tags">${post.tags.map(t => `<li class="tag"><a href="${location.origin}/search?q=${t}">${t}</a></li>`).join('')}</ul>
+        <p>${post.description}</p>
+        <p><a href="${path}">${post.linkText}</a></p>
       </article>`);
   }
 

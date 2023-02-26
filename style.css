@@ -264,6 +264,33 @@ code:not(.hljs) {
   transition: opacity 400ms;
 }
 
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  list-style: none;
+  padding: 0;
+}
+
+.tag {
+  padding-block: 4px;
+}
+
+.tag > a {
+  padding-block: 4px;
+  padding-inline: 6px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: 500;
+  background: hsl(216deg 50% 90%);
+  transition: background-color 600ms;
+}
+
+.tag > a:hover, .tag > a:focus-within  {
+  background: hsl(30deg 80% 90%);
+  transition: background-color 200ms;
+}
+
 .post {
   inline-size: min(100% - 2rem, 1440px);
   margin-inline: auto;
