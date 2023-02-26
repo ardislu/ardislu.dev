@@ -282,6 +282,7 @@ code:not(.hljs) {
   border-radius: 12px;
   text-decoration: none;
   font-weight: 500;
+  font-size: 0.875em;
   background: hsl(216deg 50% 90%);
   transition: background-color 600ms;
 }
