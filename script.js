@@ -45,8 +45,8 @@ async function fetchPostMetadata() {
       description: row[1],
       id: row[2],
       linkText: row[3],
-      createdDate: new Date(row[5]).toLocaleDateString(),
-      updatedDate: new Date(row[6]).toLocaleDateString(),
+      createdDate: new Date(row[5]),
+      updatedDate: new Date(row[6]),
       tags: row[7].split(',').map(s => s.trim())
     });
   }
@@ -60,10 +60,13 @@ function buildHomeComponent(metadata) {
   home.classList.add('card-container');
 
   for (const [path, post] of metadata) {
+    const subtitle = post.createdDate.toISOString() === post.updatedDate.toISOString() ?
+      `<time datetime="${post.createdDate.toISOString()}">${post.createdDate.toLocaleDateString()}</time>` :
+      `<time datetime="${post.createdDate.toISOString()}">${post.createdDate.toLocaleDateString()}</time> — Updated <time datetime="${post.updatedDate.toISOString()}">${post.updatedDate.toLocaleDateString()}</time>`;
     home.insertAdjacentHTML('beforeend',
       `<article class="card">
         <h2>${post.title}</h2>
-        <p class="subtitle">${post.createdDate}</p>
+        <p class="subtitle">${subtitle}</p>
         <ul class="tags">${post.tags.map(t => `<li class="tag"><a href="${location.origin}/search?q=${t}">${t}</a></li>`).join('')}</ul>
         <p>${post.description}</p>
         <p><a href="${path}">${post.linkText}</a></p>
