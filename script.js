@@ -219,6 +219,12 @@ async function showPage(path) {
     document.querySelector('main').replaceWith(globalThis.components.get('article-skeleton'));
   }
 
+  // Sync the search field value with the query param. A de-sync can happen if the user indirectly sets
+  // the search query param (e.g. direct links, browser navigation)
+  const form = document.querySelector('form');
+  const query = new URLSearchParams(location.search).get('q');
+  form.elements['query'].value = query;
+
   // Load all post metadata if it hasn't been loaded yet
   if (globalThis.metadata.size === 0) {
     globalThis.metadata = await fetchPostMetadata();
@@ -237,10 +243,6 @@ async function showPage(path) {
     document.querySelector('main').replaceWith(globalThis.components.get('home'));
   }
   else if (path === '/search') {
-    const form = document.querySelector('form');
-    const params = new URLSearchParams(location.search);
-    const query = params.get('q');
-    form.elements['query'].value = query;
     showSearch(query); // Bypass form submission because it will set the history twice on direct link
   }
   else if (globalThis.metadata.has(path)) {
