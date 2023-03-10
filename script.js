@@ -95,6 +95,14 @@ async function fetchPostContent(id) {
   const url = `${proxyUrl}?https://docs.googleapis.com/v1/documents/${id}`;
   const googleDoc = await fetch(url).then(r => r.json());
 
+  // Insert article creation date and last updated date immediately after title (hardcoded index of 2)
+  const post = metadata.get(location.pathname);
+  const postTimestamp = post.createdDate.toISOString() === post.updatedDate.toISOString() ?
+    `<time datetime="${post.createdDate.toISOString()}">${post.createdDate.toLocaleDateString()}</time>` :
+    `<time datetime="${post.createdDate.toISOString()}">${post.createdDate.toLocaleDateString()}</time> — Updated <time datetime="${post.updatedDate.toISOString()}">${post.updatedDate.toLocaleDateString()}</time>`;
+  const subtitle = `<p class="subtitle">${postTimestamp}<p>\n\n`; // Trailing newlines are required to prevent marked from interpreting the next line as HTML
+  googleDoc.body.content.splice(2, 0, { paragraph: { elements: [{ textRun: { content: subtitle } }], paragraphStyle: { namedStyleType: 'SUBTITLE' } } });
+
   const mapping = {
     TITLE: '# ',
     SUBTITLE: '',
