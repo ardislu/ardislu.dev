@@ -130,7 +130,10 @@ function buildPostComponent(articleContent) {
 
   post.insertAdjacentHTML('beforeend',
     `<article class="post">
-    ${marked(articleContent)}
+    ${marked(articleContent, {
+      mangle: false,
+      headerIds: false
+    })}
   </article>`);
 
   return post;
