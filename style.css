@@ -172,6 +172,7 @@ code {
   border-radius: 4px;
   background: hsl(0deg 0% 95%);
   padding: 1px 3px 2px;
+  hyphens: none;
 }
 
 code.hljs {
