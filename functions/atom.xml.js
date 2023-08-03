@@ -22,7 +22,7 @@ export async function onRequestGet({ env }) {
     });
 
   const feed = `<?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/">
 
   <id>https://ardislu.dev/</id>
   <title>ardislu.dev</title>
@@ -32,6 +32,7 @@ export async function onRequestGet({ env }) {
   </author>
   <link href="https://ardislu.dev/"/>
   <link rel="self" href="https://ardislu.dev/atom.xml"/>
+  <link rel="search" href="https://ardislu.dev/opensearch.osdx" type="application/opensearchdescription+xml" title="ardislu.dev"/>
   <updated>${new Date(Math.max(...updatedDates)).toISOString()}</updated>
 
   ${entries.join('\n  ')}

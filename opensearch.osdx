@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
+  <ShortName>ardislu.dev</ShortName>
+  <Description>Search for posts on ardislu.dev</Description>
+  <Tags>web ethereum crypto blockchain self-hosting tech blog post article</Tags>
+  <Contact>ardis@ardislu.dev</Contact>
+  <Image height="16" width="16" type="image/svg+xml">https://ardislu.dev/logo.svg</Image>
+  <Image height="512" width="512" type="image/png">https://ardislu.dev/logo.png</Image>
+  <Url type="application/opensearchdescription+xml" rel="self" template="https://ardislu.dev/opensearch.osdx"/>
+  <Url type="text/html" template="https://ardislu.dev/search?q={searchTerms}"/>
+  <Query role="example" searchTerms="ethereum"/>
+</OpenSearchDescription>
