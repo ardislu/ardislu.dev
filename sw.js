@@ -2,7 +2,7 @@ const cacheName = 'v5';
 const cacheChannel = new BroadcastChannel('cache');
 
 async function revalidate(request) {
-  const cachePromise = caches.match(request);
+  const cachePromise = caches.open(cacheName).then(c => c.match(request));
   const originPromise = fetch(request);
   const [cacheResponse, originResponse] = await Promise.all([cachePromise, originPromise]);
 
@@ -32,7 +32,7 @@ globalThis.addEventListener('fetch', event => {
     return;
   }
 
-  event.respondWith(caches.match(event.request).then(cacheResponse => {
+  event.respondWith(caches.open(cacheName).then(c => c.match(event.request)).then(cacheResponse => {
     const originResponse = revalidate(event.request);
     return cacheResponse === undefined ? originResponse : cacheResponse;
   }));
