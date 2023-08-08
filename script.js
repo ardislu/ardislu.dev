@@ -1,5 +1,5 @@
 import FlexDocument from 'https://cdn.jsdelivr.net/gh/nextapps-de/flexsearch@0.7.31/dist/module/document.min.js';
-import { marked } from 'https://cdn.jsdelivr.net/npm/marked@6.0.0/lib/marked.esm.min.js';
+import { marked } from 'https://cdn.jsdelivr.net/npm/marked@7.0.1/lib/marked.esm.min.js';
 import hljs from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/highlight.min.js';
 import powershell from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/es/languages/powershell.min.js';
 import solidity from '/highlightjs-solidity.min.js';
