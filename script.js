@@ -302,6 +302,9 @@ function route(href) {
   else {
     history.pushState({}, '', url);
     showPage(url.pathname);
+    // Reset scroll to simulate new page load when an in-memory page is served
+    // This does not affect the back/forward button
+    scroll(0, 0);
   }
 }
 
