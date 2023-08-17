@@ -254,6 +254,13 @@ async function showPage(path) {
     document.querySelector('main').replaceWith(globalThis.components.get('home'));
   }
   else if (path === '/search') {
+    setPageMetadata({
+      title: 'ardislu.dev',
+      description: 'Notes on web development, crypto, self-hosting, and tech in general.',
+      path: path,
+      editUrl: 'https://docs.google.com/spreadsheets/d/1pfGF8yBu3D0GPTezygLuzu3Cif8SkjhtG98nL-czlhc/edit'
+    });
+
     showSearch(query); // Bypass form submission because it will set the history twice on direct link
   }
   else if (globalThis.metadata.has(path)) {
