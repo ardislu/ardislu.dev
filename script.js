@@ -59,6 +59,12 @@ function buildHomeComponent(metadata) {
   const home = document.createElement('main');
   home.classList.add('card-container');
 
+  if (metadata.size === 0) {
+    home.insertAdjacentHTML('beforeend', 
+      `<p>No results found.</p>`);
+    return home;
+  }
+
   for (const [path, post] of metadata) {
     const subtitle = post.createdDate.toISOString() === post.updatedDate.toISOString() ?
       `<time datetime="${post.createdDate.toISOString()}">${post.createdDate.toLocaleDateString()}</time>` :
