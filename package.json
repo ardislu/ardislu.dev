@@ -1,0 +1,16 @@
+{
+  "name": "ardislu.dev",
+  "private": true,
+  "scripts": {
+    "dev": "wrangler pages dev .",
+    "build": "esbuild vendor.js --bundle --minify --format=esm --outfile=vendor.min.js"
+  },
+  "devDependencies": {
+    "esbuild": "^0.19.3",
+    "flexsearch": "^0.7.31",
+    "highlight.js": "^11.8.0",
+    "highlightjs-solidity": "^2.0.6",
+    "marked": "^9.0.2",
+    "wrangler": "^3.8.0"
+  }
+}
