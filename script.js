@@ -1,5 +1,14 @@
-import { FlexDocument, marked, hljs, powershell, solidity } from '/vendor.min.js';
+import { FlexDocument, marked, hljs, plaintext, json, yaml, xml, css, javascript, typescript, bash, powershell, solidity } from '/vendor.min.js';
 
+hljs.registerLanguage('plaintext', plaintext);
+hljs.registerLanguage('json', json);
+hljs.registerLanguage('yml', yaml);
+hljs.registerLanguage('xml', xml);
+hljs.registerLanguage('html', xml);
+hljs.registerLanguage('css', css);
+hljs.registerLanguage('javascript', javascript);
+hljs.registerLanguage('typescript', typescript);
+hljs.registerLanguage('bash', bash);
 hljs.registerLanguage('powershell', powershell);
 hljs.registerLanguage('solidity', solidity);
 
