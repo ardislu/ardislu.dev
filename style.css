@@ -1,3 +1,9 @@
+html {
+  -moz-text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
+}
+
 body {
   display: grid;
   grid-template-rows: auto auto 1fr auto;
