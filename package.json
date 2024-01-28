@@ -6,11 +6,11 @@
     "build": "esbuild vendor.js --bundle --minify --format=esm --outfile=vendor.min.js"
   },
   "devDependencies": {
-    "esbuild": "^0.19.11",
+    "esbuild": "^0.20.0",
     "flexsearch": "^0.7.43",
     "highlight.js": "^11.9.0",
     "highlightjs-solidity": "^2.0.6",
-    "marked": "^11.1.1",
-    "wrangler": "^3.22.4"
+    "marked": "^11.2.0",
+    "wrangler": "^3.25.0"
   }
 }
