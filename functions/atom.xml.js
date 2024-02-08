@@ -29,6 +29,7 @@ export async function onRequestGet({ env }) {
   <subtitle>Notes on web development, crypto, self-hosting, and tech in general.</subtitle>
   <author>
     <name>Ardis Lu</name>
+    <email>ardis@ardislu.dev</email>
   </author>
   <link href="https://ardislu.dev/"/>
   <link rel="self" href="https://ardislu.dev/atom.xml"/>
