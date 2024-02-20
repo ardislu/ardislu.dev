@@ -200,6 +200,23 @@ function showSearch(query) {
   const filteredMetadata = search(query);
   const filteredHome = buildHomeComponent(filteredMetadata);
 
+  // Highlight instances of query in the text nodes of filteredHome
+  const walker = document.createTreeWalker(filteredHome, NodeFilter.SHOW_TEXT);
+  let node;
+  const ranges = [];
+  while (node = walker.nextNode()) {
+    const start = node.nodeValue.toLowerCase().indexOf(query.toLowerCase());
+    if (start === -1) {
+      continue;
+    }
+    const range = new Range();
+    range.setStart(node, start);
+    range.setEnd(node, start + query.length);
+    ranges.push(range);
+  }
+  const highlight = new Highlight(...ranges);
+  CSS.highlights.set('search', highlight);
+
   document.querySelector('main').replaceWith(filteredHome);
 }
 

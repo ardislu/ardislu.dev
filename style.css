@@ -306,6 +306,10 @@ code:not(.hljs) {
   transition: background-color 200ms;
 }
 
+::highlight(search) {
+  background: hsl(30deg 80% 90%);
+}
+
 .post {
   inline-size: min(100% - 2rem, 1440px);
   margin-inline: auto;
