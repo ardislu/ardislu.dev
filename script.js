@@ -214,8 +214,10 @@ function showSearch(query) {
     range.setEnd(node, start + query.length);
     ranges.push(range);
   }
-  const highlight = new Highlight(...ranges);
-  CSS.highlights.set('search', highlight);
+  if (CSS.highlights !== undefined) {
+    const highlight = new Highlight(...ranges);
+    CSS.highlights.set('search', highlight);
+  }
 
   document.querySelector('main').replaceWith(filteredHome);
 }
