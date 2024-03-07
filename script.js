@@ -360,17 +360,22 @@ document.addEventListener('click', e => {
 
 /* DevTools console help message. */
 const ascii =
-`                   _       _            _                 
-                   | (_)   | |          | |                
-       ____ ____ __| |_ ___| |_   _   __| | _____  __      
-      / _  |  __/ _  | | __| | | | | / _  |/ __| |/ /      
-     | |_| | | | |_| | |__ | | |_| || |_| |  __| V /       
-     |_____|_| |_____|_|___|_|_____(_)____|____|__/        
-                                                           
-Poking around? Here are some globals that might be helpful:`;
-
+`┌──────────────────────────────────────────────────────────┐
+│                    _       _            _                │
+│                   | (_)   | |          | |               │
+│       ____ ____ __| |_ ___| |_   _   __| | _____  __     │
+│      / _  |  __/ _  | | __| | | | | / _  |/ __| |/ /     │
+│     | |_| | | | |_| | |__ | | |_| || |_| |  __| V /      │
+│     |_____|_| |_____|_|___|_|_____(_)____|____|__/       │
+│                                                          │
+│        ardislu.dev: a personal technical blog.           │
+└──────────────────────────────────────────────────────────┘`;
 function help() {
-  console.log(`%c ${ascii}`, 'font-weight: bold');
+  console.log(
+    ascii.match(/.{60}/g).map(l => l.match(/.{6}/g).map(c => `%c${c}`).join('')).join('\n'),
+    ...new Array(100).fill().map((_, i) => `color: hsl(${(i * 36) % 360}deg, 50%, 50%)`)
+  );
+  console.log('%cPoking around? Here are some globals that might be helpful:', 'font-weight: bold');
   console.table({
     'help()': 'Print this message.',
     'search(str)': 'Search the metadata.',
