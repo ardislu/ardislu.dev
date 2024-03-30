@@ -189,6 +189,25 @@ code:not(.hljs) {
   line-height: 1.5;
 }
 
+table {
+  border-collapse: collapse;
+}
+
+tr {
+  transition: background-color 500ms;
+}
+
+tr:hover,
+tr:focus-within {
+  background: hsl(30deg 80% 90%);
+  transition: background-color 150ms;
+}
+
+th,
+td {
+  padding: 8px;
+}
+
 .card-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(360px, 100%), 1fr));
