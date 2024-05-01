@@ -405,5 +405,10 @@ articleSkeleton.insertAdjacentHTML('beforeend',
   </article>`);
 globalThis.components.set('article-skeleton', articleSkeleton);
 
+/* Inject obfuscated email. To block low-effort scraping. */
+const addr = document.querySelector('address > a');
+addr.href = atob('bWFpbHRvOmFyZGlzQGFyZGlzbHUuZGV2');
+addr.textContent = atob('YXJkaXNAYXJkaXNsdS5kZXY=');
+
 help();
 showPage(location.pathname); // To support direct links to articles

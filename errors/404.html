@@ -61,10 +61,10 @@
 
   <!-- Spacer element to stick the footer to the bottom of the page -->
   <div></div>
-  
+
   <footer>
     <address>
-      <a href="mailto:ardis@ardislu.dev">ardis@ardislu.dev</a>
+      <a href="#"><noscript>ardis [at] ardislu [dot] dev</noscript></a>
     </address>
   </footer>
 
@@ -80,6 +80,11 @@
 
     document.querySelector('div').remove();
     message.removeAttribute('hidden');
+
+    // Inject obfuscated email. To block low-effort scraping.
+    const addr = document.querySelector('address > a');
+    addr.href = atob('bWFpbHRvOmFyZGlzQGFyZGlzbHUuZGV2');
+    addr.textContent = atob('YXJkaXNAYXJkaXNsdS5kZXY=');
   </script>
 </body>
 
