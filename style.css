@@ -354,6 +354,11 @@ dialog {
     0px 4.3px 4.8px -1.2px hsl(50deg 72% 69% / 0.17),
     0px 8.4px 9.5px -1.9px hsl(50deg 72% 69% / 0.17),
     0.1px 16px 18px -2.5px hsl(50deg 72% 69% / 0.17);
+  transition: opacity 400ms, translate 400ms;
+  @starting-style {
+    opacity: 0;
+    translate: 0 100%;
+  }
 }
 
 dialog div {
