@@ -68,6 +68,15 @@ header * {
   gap: 4px;
 }
 
+header search {
+  flex-grow: 1;
+  justify-content: end;
+}
+
+form {
+  position: relative;
+}
+
 .visually-hidden {
   position: absolute;
   width: 1px;
@@ -80,11 +89,22 @@ header * {
 }
 
 input {
+  inline-size: 32ch;
   min-block-size: 20px;
   font-size: 16px;
-  padding: 4px;
+  padding: 4px 24px 4px 4px;
   background: hsl(0deg 100% 100%);
   border: 1px solid hsl(216deg 30% 80%);
+  border-radius: 4px;
+  outline: 2px solid hsl(216deg 30% 80% / 0);
+  outline-offset: 1px;
+  transition: outline-color 400ms, border-color 400ms;
+
+  &:focus-within {
+    border-color: transparent;
+    outline-color: hsl(216deg 50% 50%);
+    transition: outline-color 200ms, border-color 200ms;
+  }
 }
 
 /* Hide magnifying glass on Safari */
@@ -103,6 +123,10 @@ header > nav {
 @media (min-width: 34.375rem) {
   header > nav {
     display: initial;
+  }
+
+  header search {
+    justify-content: center;
   }
 }
 
@@ -127,6 +151,10 @@ form > button {
   border: none;
   cursor: pointer;
   padding: 0;
+  width: 20px;
+  position: absolute;
+  inset-inline-end: 4px;
+  inset-block-end: 0;
 }
 
 h1 {

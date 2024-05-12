@@ -43,17 +43,19 @@
       </svg>
     </a>
 
-    <form role="search">
-      <label for="query" class="visually-hidden">Search this site</label>
-      <input type="search" name="query" id="query" pattern=".*\w+.*" required>
-      <button>
-        <svg role="img" aria-labelledby="search-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
-          <title id="search-icon">Search</title>
-          <circle cx="9" cy="9" r="7" stroke="#000" />
-          <line x1="14" y1="14" x2="22" y2="22" stroke="#000" stroke-linecap="round" />
-        </svg>
-      </button>
-    </form>
+    <search>
+      <form>
+        <label for="query" class="visually-hidden">Search this site</label>
+        <input type="search" name="query" id="query" pattern=".*\w+.*" required>
+        <button>
+          <svg role="img" aria-labelledby="search-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <title id="search-icon">Search</title>
+            <circle cx="9" cy="9" r="7" stroke="#000" />
+            <line x1="14" y1="14" x2="20" y2="20" stroke="#000" stroke-linecap="round" />
+          </svg>
+        </button>
+      </form>
+    </search>
 
     <nav>
       <a id="edit" href="/">
