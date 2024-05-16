@@ -203,6 +203,7 @@ blockquote::before {
 }
 
 code {
+  border: 1px solid transparent;
   border-radius: 4px;
   background: hsl(0deg 0% 95%);
   padding: 1px 3px 2px;
@@ -341,6 +342,7 @@ td {
 .tag > a {
   padding-block: 4px;
   padding-inline: 6px;
+  border: 1px solid transparent;
   border-radius: 12px;
   text-decoration: none;
   font-weight: 500;
