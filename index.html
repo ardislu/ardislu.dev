@@ -14,11 +14,14 @@
   <meta property="og:image:alt" content="Website logo above the text 'notes on web development, crypto, self-hosting, and tech in general.'">
   <meta name="twitter:card" content="summary_large_image">
   <base href="/">
+  <link rel="modulepreload" href="/vendor.min.js">
+  <link rel="preload" as="fetch" href="/api?https://sheets.googleapis.com/v4/spreadsheets/1pfGF8yBu3D0GPTezygLuzu3Cif8SkjhtG98nL-czlhc/values/B3:I" crossorigin>
   <link rel="icon" href="/logo.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/logo_maskable.png">
   <link rel="manifest" href="/manifest.webmanifest">
   <link rel="search" href="https://ardislu.dev/opensearch.osdx" type="application/opensearchdescription+xml" title="ardislu.dev">
   <link rel="alternate" type="application/atom+xml" title="ardislu.dev" href="/atom.xml">
+  <link rel="canonical" href="https://ardislu.dev/">
   <style>
     @layer fonts, base, print, hljs;
 
@@ -27,7 +30,6 @@
     @import "/print.css" layer(print) print;
     @import "https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/default.min.css" layer(hljs);
   </style>
-  <link rel="canonical" href="https://ardislu.dev/">
   <title>ardislu.dev</title>
 </head>
 
