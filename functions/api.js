@@ -1,6 +1,6 @@
 import { getGoogleAuthToken } from './auth.js';
 
-export async function onRequestGet({ request, env }) {
+export async function onRequestGet({ request, env, waitUntil }) {
   const url = new URL(request.url);
   const queryUrl = new URL(decodeURIComponent(url.search.substring(1)));
 
@@ -10,6 +10,15 @@ export async function onRequestGet({ request, env }) {
   }
 
   const token = await getGoogleAuthToken(env.EMAIL, env.PRIVATE_KEY, 'https://www.googleapis.com/auth/spreadsheets.readonly https://www.googleapis.com/auth/documents.readonly');
-
-  return fetch(queryUrl, { headers: { Authorization: `Bearer ${token}` } });
+  const responsePromise = fetch(queryUrl, { headers: { Authorization: `Bearer ${token}` } });
+  const cachedResponse = await caches.default.match(queryUrl);
+  if (cachedResponse) {
+    waitUntil(responsePromise.then(response => caches.default.put(queryUrl, response)));
+    return cachedResponse;
+  }
+  else {
+    const response = await responsePromise;
+    waitUntil(caches.default.put(queryUrl, response.clone()));
+    return response;
+  }
 }
