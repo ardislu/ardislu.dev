@@ -9,8 +9,8 @@ export async function onRequestGet({ request, env, waitUntil }) {
     return new Response('Invalid query URL. Query URL hostname must be "sheets.googleapis.com" or "docs.googleapis.com".', { status: 400 });
   }
 
-  const token = await getGoogleAuthToken(env.EMAIL, env.PRIVATE_KEY, 'https://www.googleapis.com/auth/spreadsheets.readonly https://www.googleapis.com/auth/documents.readonly');
-  const responsePromise = fetch(queryUrl, { headers: { Authorization: `Bearer ${token}` } })
+  const responsePromise = getGoogleAuthToken(env.EMAIL, env.PRIVATE_KEY, 'https://www.googleapis.com/auth/spreadsheets.readonly https://www.googleapis.com/auth/documents.readonly')
+    .then(t => fetch(queryUrl, { headers: { Authorization: `Bearer ${t}` } }))
     .then(r => r.blob())
     .then(b => new Response(b, { headers: { 'Content-Type': 'application/json' } })); // Remove extra response headers which may interfere with cache
   const cachedResponse = await caches.default.match(queryUrl);
