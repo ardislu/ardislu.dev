@@ -12,7 +12,12 @@ export async function onRequestGet({ request, env, waitUntil }) {
   const responsePromise = getGoogleAuthToken(env.EMAIL, env.PRIVATE_KEY, 'https://www.googleapis.com/auth/spreadsheets.readonly https://www.googleapis.com/auth/documents.readonly')
     .then(t => fetch(queryUrl, { headers: { Authorization: `Bearer ${t}` } }))
     .then(r => r.blob())
-    .then(b => new Response(b, { headers: { 'Content-Type': 'application/json' } })); // Remove extra response headers which may interfere with cache
+    .then(b => new Response(b, { // Remove extra response headers which may interfere with cache
+      headers: {
+        'Content-Type': 'application/json',
+        'Cache-Control': 'max-age=2592000' // = 60*60*24*30 (i.e., 30 days in seconds)
+      }
+    }));
   const cachedResponse = await caches.default.match(queryUrl);
   if (cachedResponse) {
     waitUntil(responsePromise.then(response => caches.default.put(queryUrl, response)));
