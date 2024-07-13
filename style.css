@@ -6,7 +6,7 @@ html {
 
 body {
   display: grid;
-  grid-template-rows: auto auto 1fr auto;
+  grid-template-rows: auto 1fr auto;
   min-block-size: 100dvh;
   color: hsl(0deg 0% 15%);
   background: radial-gradient(circle at top, hsl(216deg 10% 95%), hsl(216deg 15% 90%) 40%);
