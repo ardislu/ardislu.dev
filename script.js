@@ -88,13 +88,11 @@ function buildHomeComponent(metadata) {
 
   // Sets grid-row-end for each card when the homepage is resized. Required to implement masonry layout.
   new ResizeObserver(_ => {
-    const halfRemHeight = parseFloat(getComputedStyle(document.documentElement).fontSize) / 2;
-    for (let card of home.children) {
-      let contentHeight = 0;
-      for (let child of card.children) {
-        contentHeight += child.clientHeight;
-      }
-      card.style.gridRowEnd = `span ${Math.ceil(contentHeight / halfRemHeight)}`;
+    for (const card of home.children) {
+      const contentHeight = Array.from(card.children).reduce((acc, cur) => acc + cur.clientHeight, 0);
+      const cardHeight = contentHeight + 128; // 6 * 16px gaps + 2 * 16px padding
+      card.style.gridRowEnd = `span ${Math.ceil(cardHeight / 16)}`; // 16px grid gap
+      card.style.maxBlockSize = `${cardHeight}px`;
     }
   }).observe(home);
 
