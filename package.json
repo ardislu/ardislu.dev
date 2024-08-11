@@ -11,6 +11,6 @@
     "highlight.js": "^11.10.0",
     "highlightjs-solidity": "^2.0.6",
     "marked": "^14.0.0",
-    "wrangler": "^3.69.1"
+    "wrangler": "^3.70.0"
   }
 }
