@@ -3,7 +3,8 @@
   "private": true,
   "scripts": {
     "dev": "wrangler pages dev .",
-    "build": "esbuild vendor.js --bundle --minify --format=esm --outfile=vendor.min.js"
+    "build": "esbuild vendor.js --bundle --minify --format=esm --outfile=vendor.min.js",
+    "start": "npm run build && npm run dev"
   },
   "devDependencies": {
     "esbuild": "^0.23.1",

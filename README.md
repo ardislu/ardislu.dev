@@ -20,8 +20,6 @@ Use the `wrangler` CLI to serve the static frontend and the [Cloudflare Workers]
 
 2. `npm i`
 
-3. `npm run build`
-
-4. `npm run dev`
+3. `npm start`
 
 To install new dependencies or update existing dependencies, run `npm run build` to generate a new `vendor.min.js`.
