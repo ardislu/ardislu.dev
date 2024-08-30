@@ -150,11 +150,10 @@ form > button {
   background: transparent;
   border: none;
   cursor: pointer;
-  padding: 0;
-  width: 20px;
+  padding: 4px;
+  width: 28px;
   position: absolute;
-  inset-inline-end: 4px;
-  inset-block-end: 0;
+  inset-inline-end: 0;
 }
 
 h1 {
