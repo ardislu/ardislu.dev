@@ -61,6 +61,16 @@ async function fetchPostMetadata() {
   return metadata;
 }
 
+// Sets grid-row-end for each card when the homepage is resized. Required to implement masonry layout.
+const observer = new ResizeObserver(home => {
+  for (const card of home.children) {
+    const contentHeight = Array.from(card.children).reduce((acc, cur) => acc + cur.clientHeight, 0);
+    const cardHeight = contentHeight + 128; // 6 * 16px gaps + 2 * 16px padding
+    card.style.gridRowEnd = `span ${Math.ceil(cardHeight / 16)}`; // 16px grid gap
+    card.style.maxBlockSize = `${cardHeight}px`;
+  }
+});
+
 /* Constructs the <main> element used on the homepage from the CMS metadata Map object. */
 function buildHomeComponent(metadata) {
   const home = document.createElement('main');
@@ -86,15 +96,8 @@ function buildHomeComponent(metadata) {
       </article>`);
   }
 
-  // Sets grid-row-end for each card when the homepage is resized. Required to implement masonry layout.
-  new ResizeObserver(_ => {
-    for (const card of home.children) {
-      const contentHeight = Array.from(card.children).reduce((acc, cur) => acc + cur.clientHeight, 0);
-      const cardHeight = contentHeight + 128; // 6 * 16px gaps + 2 * 16px padding
-      card.style.gridRowEnd = `span ${Math.ceil(cardHeight / 16)}`; // 16px grid gap
-      card.style.maxBlockSize = `${cardHeight}px`;
-    }
-  }).observe(home);
+  observer.disconnect();
+  observer.observe(home);
 
   return home;
 }
