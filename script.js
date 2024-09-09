@@ -69,15 +69,38 @@ function debounce(fn, wait) {
   }
 }
 
-// Sets grid-row-end for each card when the homepage is resized. Required to implement masonry layout.
-const observer = new ResizeObserver(debounce(entries => {
-  for (const card of entries[0].target.children) {
+// Sets grid-row-end for each card based on card content. Required to implement masonry layout.
+function setGridRowEnd(home) {
+  const writes = [];
+  for (const card of home.children) {
     const contentHeight = Array.from(card.children).reduce((acc, cur) => acc + cur.clientHeight, 0);
     const cardHeight = contentHeight + 128; // 6 * 16px gaps + 2 * 16px padding
-    card.style.gridRowEnd = `span ${Math.ceil(cardHeight / 16)}`; // 16px grid gap
-    card.style.maxBlockSize = `${cardHeight}px`;
+
+    // IMPORTANT: do NOT set the styles inside this loop, otherwise there will be a forced CSS reflow on each loop (layout thrashing)
+    // because .clientHeight requires the elements to be positioned. Instead, gather the writes and set them all as a batch
+    // AFTER all .clientHeight values have been read.
+    writes.push({
+      card,
+      gridRowEnd: `span ${Math.ceil(cardHeight / 16)}`, // 16px grid gap
+      maxBlockSize: `${cardHeight}px`
+    });
   }
-}, 200));
+
+  // Set all styles as a batch, separated from the .clientHeight reads
+  for (const { card, gridRowEnd, maxBlockSize } of writes) {
+    card.style.gridRowEnd = gridRowEnd;
+    card.style.maxBlockSize = maxBlockSize;
+  }
+}
+
+// Recalculate grid-row-end only if inline size of the home component has changed.
+let previousInline = 0;
+const observer = new ResizeObserver(debounce(entries => {
+  if (previousInline !== entries[0].borderBoxSize[0].inlineSize) {
+    previousInline = entries[0].borderBoxSize[0].inlineSize;
+    setGridRowEnd(entries[0].target);
+  };
+}, 100));
 
 /* Constructs the <main> element used on the homepage from the CMS metadata Map object. */
 function buildHomeComponent(metadata) {
@@ -202,12 +225,15 @@ globalThis.search = search;
 
 function showSearch(query) {
   if (query === '') {
-    document.querySelector('main').replaceWith(globalThis.components.get('home'));
+    const home = globalThis.components.get('home');
+    document.querySelector('main').replaceWith(home);
+    setTimeout(() => setGridRowEnd(home), 0);
     return;
   }
 
   const filteredMetadata = search(query);
   const filteredHome = buildHomeComponent(filteredMetadata);
+  setTimeout(() => setGridRowEnd(filteredHome), 0);
 
   // Highlight instances of query in the text nodes of filteredHome
   const walker = document.createTreeWalker(filteredHome, NodeFilter.SHOW_TEXT);
@@ -289,7 +315,9 @@ async function showPage(path) {
       editUrl: 'https://docs.google.com/spreadsheets/d/1pfGF8yBu3D0GPTezygLuzu3Cif8SkjhtG98nL-czlhc/edit'
     });
 
-    document.querySelector('main').replaceWith(globalThis.components.get('home'));
+    const home = globalThis.components.get('home');
+    document.querySelector('main').replaceWith(home);
+    setTimeout(() => setGridRowEnd(home), 0); // Schedule initial grid-row-end on first page load
   }
   else if (path === '/search') {
     setPageMetadata({
