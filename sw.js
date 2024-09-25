@@ -1,4 +1,4 @@
-const cacheName = 'v5';
+const cacheName = 'v6';
 const cacheChannel = new BroadcastChannel('cache');
 
 async function revalidate(request) {
@@ -28,7 +28,7 @@ async function revalidate(request) {
 // Implements stale-while-revalidate strategy: if there's anything in the cache, return that immediately.
 // Wait for the origin server's response in parallel and notify cacheChannel if the cache changed.
 addEventListener('fetch', event => {
-  if (event.request.method !== 'GET') {
+  if (event.request.method !== 'GET' || new URL(event.request.url).hostname !== location.hostname) {
     return;
   }
 
