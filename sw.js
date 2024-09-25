@@ -27,7 +27,7 @@ async function revalidate(request) {
 
 // Implements stale-while-revalidate strategy: if there's anything in the cache, return that immediately.
 // Wait for the origin server's response in parallel and notify cacheChannel if the cache changed.
-globalThis.addEventListener('fetch', event => {
+addEventListener('fetch', event => {
   if (event.request.method !== 'GET') {
     return;
   }
@@ -37,3 +37,6 @@ globalThis.addEventListener('fetch', event => {
     return cacheResponse === undefined ? originResponse : cacheResponse;
   }));
 });
+
+addEventListener('install', skipWaiting); // Immediately override any pre-existing service worker
+addEventListener('activate', () => clients.claim()); // Immediately intercept fetch requests after first registration without page reload
