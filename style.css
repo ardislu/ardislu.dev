@@ -359,6 +359,12 @@ td {
   background: hsl(30deg 80% 90%);
 }
 
+.message {
+  text-align: center;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
 .post {
   inline-size: min(100% - 2rem, 1440px);
   margin-inline: auto;

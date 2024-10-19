@@ -108,8 +108,7 @@ function buildHomeComponent(metadata) {
   home.classList.add('card-container');
 
   if (metadata.size === 0) {
-    home.insertAdjacentHTML('beforeend', 
-      `<p>No results found.</p>`);
+    home.insertAdjacentHTML('beforeend', `<p class="message">No results found.</p>`);
     return home;
   }
 
