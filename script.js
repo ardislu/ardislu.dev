@@ -184,7 +184,6 @@ function buildPostComponent(articleContent) {
 function setPageMetadata(values) {
   document.title = values.title;
   document.querySelector('meta[name="description"]').content = values.description;
-  document.querySelector('link[rel="canonical"]').href = `https://ardislu.dev${values.path}`;
   document.querySelector('meta[property="og:title"]').content = values.title;
   document.querySelector('meta[property="og:description"]').content = values.description;
   document.querySelector('meta[property="og:url"]').content = `https://ardislu.dev${values.path}`;
