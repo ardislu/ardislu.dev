@@ -394,6 +394,14 @@ document.addEventListener('click', e => {
   }
 });
 
+/* Enable pressing spacebar to click <a> links. */
+document.addEventListener('keydown', e => {
+  if (e.code === 'Space' && e.target?.tagName === 'A') {
+    e.preventDefault();
+    e.target.click();
+  }
+});
+
 /* DevTools console help message. */
 const ascii =
 `┌──────────────────────────────────────────────────────────┐
