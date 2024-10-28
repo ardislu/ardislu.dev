@@ -282,6 +282,14 @@ document.addEventListener('keydown', event => {
   }
 });
 
+/* Enable pressing spacebar to click <a> links. */
+document.addEventListener('keydown', e => {
+  if (e.code === 'Space' && e.target?.tagName === 'A') {
+    e.preventDefault();
+    e.target.click();
+  }
+});
+
 /* Implement client-side routing. Handles view logic for /home and /:post routes. */
 async function showPage(path) {
   // Determine which placeholders to show
@@ -390,14 +398,6 @@ document.addEventListener('click', e => {
   if (anchor) {
     e.preventDefault();
     route(anchor.href);
-  }
-});
-
-/* Enable pressing spacebar to click <a> links. */
-document.addEventListener('keydown', e => {
-  if (e.code === 'Space' && e.target?.tagName === 'A') {
-    e.preventDefault();
-    e.target.click();
   }
 });
 
