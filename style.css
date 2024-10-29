@@ -77,6 +77,19 @@ form {
   position: relative;
 }
 
+#skip-to-main {
+  z-index: 1;
+  position: fixed;
+  top: 0;
+  left: -1000px;
+  padding: 8px;
+  background: white;
+
+  &:focus {
+    left: 0;
+  }
+}
+
 .visually-hidden {
   position: absolute;
   width: 1px;
