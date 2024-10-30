@@ -293,6 +293,7 @@ document.addEventListener('keydown', e => {
 /* Implement "skip to main" button */
 document.querySelector('#skip-to-main').addEventListener('click', e => {
   e.preventDefault();
+  e.stopPropagation(); // Block bubbling up to document-wide click handler for client-side routing
   document.querySelector('main').querySelector('a')?.focus(); // Assumes first focusable element is always <a>
 });
 
@@ -396,7 +397,7 @@ function route(href) {
 /* Set event handlers for client-side routing. */
 globalThis.addEventListener('popstate', _ => showPage(location.pathname));
 document.addEventListener('click', e => {
-  if (e.altKey || e.ctrlKey || e.metaKey || e.shiftKey || e.target.id === 'skip-to-main') {
+  if (e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) {
     return; // Use default behavior if any keyboard modifier is applied to the click or it's a special link
   }
 
