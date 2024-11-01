@@ -307,10 +307,10 @@ td {
   content: "";
   position: absolute;
   z-index: -1;
-  top: -6px;
-  left: -6px;
-  width: calc(100% + 12px);
-  height: calc(100% + 12px);
+  top: -4px;
+  left: -4px;
+  width: calc(100% + 8px);
+  height: calc(100% + 8px);
   border-radius: 18px;
   --shade: 50% 70%;
   background: conic-gradient(hsl(360deg var(--shade)),
@@ -330,6 +330,15 @@ td {
 .card:focus-within::before {
   opacity: 1;
   transition: opacity 400ms;
+}
+
+@media (min-width: 370px) {
+  .card::before {
+    top: -6px;
+    left: -6px;
+    width: calc(100% + 12px);
+    height: calc(100% + 12px);
+  }
 }
 
 .subtitle {
