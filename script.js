@@ -223,15 +223,12 @@ globalThis.search = search;
 
 function showSearch(query) {
   if (query === '') {
-    const home = globalThis.components.get('home');
-    document.querySelector('main').replaceWith(home);
-    setTimeout(() => setGridRowEnd(home), 0);
+    showPage('/');
     return;
   }
 
   const filteredMetadata = search(query);
   const filteredHome = buildHomeComponent(filteredMetadata);
-  setTimeout(() => setGridRowEnd(filteredHome), 0);
 
   // Highlight instances of query in the text nodes of filteredHome
   const walker = document.createTreeWalker(filteredHome, NodeFilter.SHOW_TEXT);
@@ -330,7 +327,7 @@ async function showPage(path) {
 
     const home = globalThis.components.get('home');
     document.querySelector('main').replaceWith(home);
-    setTimeout(() => setGridRowEnd(home), 0); // Schedule initial grid-row-end on first page load
+    setGridRowEnd(home);
   }
   else if (path === '/search') {
     setPageMetadata({
@@ -341,6 +338,7 @@ async function showPage(path) {
     });
 
     showSearch(query); // Bypass form submission because it will set the history twice on direct link
+    setGridRowEnd(document.querySelector('main'));
   }
   else if (globalThis.metadata.has(path)) {
     const post = globalThis.metadata.get(path);
