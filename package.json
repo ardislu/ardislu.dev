@@ -10,9 +10,9 @@
   "devDependencies": {
     "esbuild": "^0.24.0",
     "flexsearch": "^0.7.43",
-    "highlight.js": "^11.10.0",
+    "highlight.js": "^11.11.0",
     "highlightjs-solidity": "^2.0.6",
     "marked": "^15.0.3",
-    "wrangler": "^3.94.0"
+    "wrangler": "^3.95.0"
   }
 }
