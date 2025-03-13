@@ -190,6 +190,7 @@ a:hover, a:focus, form > button:hover, form > button:focus {
   background: hsl(30deg 80% 90%);
   border-radius: 4px;
   text-decoration-color: currentColor;
+  outline-color: hsl(216deg 50% 50%);
   transition: 150ms;
 }
 
