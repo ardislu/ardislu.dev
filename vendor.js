@@ -1,4 +1,4 @@
-import { Document as FlexDocument } from 'flexsearch/esm';
+import { Document as FlexDocument } from 'flexsearch';
 import { marked } from 'marked';
 import hljs from 'highlight.js/lib/core';
 import plaintext from 'highlight.js/lib/languages/plaintext';
