@@ -12,7 +12,7 @@
     "flexsearch": "^0.8.205",
     "highlight.js": "^11.11.1",
     "highlightjs-solidity": "^2.0.6",
-    "marked": "^16.1.1",
-    "wrangler": "^4.27.0"
+    "marked": "^16.1.2",
+    "wrangler": "^4.28.0"
   }
 }
