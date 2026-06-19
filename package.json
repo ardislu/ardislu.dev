@@ -8,11 +8,11 @@
     "start": "npm run build && npm run dev"
   },
   "devDependencies": {
-    "esbuild": "^0.28.0",
+    "esbuild": "^0.28.1",
     "flexsearch": "^0.8.212",
     "highlight.js": "^11.11.1",
     "highlightjs-solidity": "^2.0.6",
-    "marked": "^18.0.4",
-    "wrangler": "^4.97.0"
+    "marked": "^18.0.5",
+    "wrangler": "^4.100.0"
   }
 }
